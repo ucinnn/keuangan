@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+        'tupusat' => [
+            'driver' => 'session',
+            'provider' => 'tupusat',
+        ],
+        'tuunit' => [
+            'driver' => 'session',
+            'provider' => 'tuunit',
+        ],
     ],
 
     /*
@@ -63,6 +75,21 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\admin::class),
+        ],
+
+        'tupusat' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\tupusat::class),
+        ],
+
+        'tuunit' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\tuunit::class),
         ],
 
         // 'users' => [

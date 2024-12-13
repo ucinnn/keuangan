@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\tuunit\Auth\LoginController;
 use App\Http\Controllers\tuunit\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('tuunit')->middleware('guest:tuunit')->group(function () {

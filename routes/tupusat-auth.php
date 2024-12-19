@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\tupusat\Auth\LoginController;
 use App\Http\Controllers\tupusat\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('tupusat')->middleware('guest:tupusat')->group(function () {
@@ -14,6 +13,15 @@ Route::prefix('tupusat')->middleware('guest:tupusat')->group(function () {
 });
 
 Route::prefix('tupusat')->middleware('auth:tupusat')->group(function () {
+
+    Route::get('/dashboard', function () {
+        return view('tupusat.dashboard');
+    })->name('tupusat.dashboard');
+
+    Route::get('/manage-biaya', action: function () {
+        return view('tupusat.manage-biaya');
+    })->name('tupusat.manage-biaya');
+
 
     Route::post('logout', [LoginController::class, 'destroy'])->name('tupusat.logout');
 });

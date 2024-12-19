@@ -45,6 +45,6 @@ class RegisteredUserController extends Controller
 
         Auth::guard('tupusat')->login($tupusat);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('tupusat.dashboard', absolute: false));
     }
 }

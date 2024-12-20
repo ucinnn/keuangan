@@ -55,6 +55,14 @@
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
+                </br>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-row justify-between items-center h-12">
+                        <div class="flex flex-row-shrink-0">
+                            <span class="text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

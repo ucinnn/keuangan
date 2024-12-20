@@ -13,8 +13,25 @@
         });
     });
 </script>
+<style>
+    .navbar-sticky-top {
+        position: fixed;
+    }
+</style>
 
-<aside id="sidebar-multi-level-sidebar" class=" w-64 h-screen" aria-label="Sidebar">
+
+<aside id="sidebar-multi-level-sidebar" class=" w-64 h-screen navbar-sticky-top" aria-label="Sidebar">
+    <!-- Header -->
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-12">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-900">ADMIN</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
 
         {{-- user profile --}}
@@ -141,5 +158,6 @@
                 </a>
             </li>
         </ul>
+
     </div>
 </aside>

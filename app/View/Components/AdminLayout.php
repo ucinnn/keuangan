@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class Adminlayout extends Component
+class AdminLayout extends Component
 {
     /**
      * Get the view / contents that represents the component.

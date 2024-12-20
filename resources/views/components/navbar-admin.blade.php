@@ -14,15 +14,15 @@
     });
 </script>
 <style>
-    .navbar-sticky-top {
+    .navbar-sticky-side {
         position: fixed;
     }
 </style>
 
 
-<aside id="sidebar-multi-level-sidebar" class=" w-64 h-screen navbar-sticky-top" aria-label="Sidebar">
+<aside id="sidebar-multi-level-sidebar" class=" w-64 h-screen navbar-sticky-side bg-green-800" aria-label="Sidebar">
     <!-- Header -->
-    <header class="bg-white shadow">
+    <header class="bg-white shadow ">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-12">
                 <div class="flex-shrink-0">
@@ -32,40 +32,44 @@
         </div>
     </header>
 
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-
+    <div class="h-full px-3 py-4 overflow-y-auto bg-primary">
         {{-- user profile --}}
-        <div class="p-4 flex items-center">
+        <div class="flex items-center">
             <img alt="User profile picture" class="rounded-full" height="50" src="{{ asset('/images/profile.png') }}"
                 width="50">
-            <div class="ml-4 hidden-on-minimized flex items-center">
-                <span class="text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
-                <x-dropdown align="right" width="40">
-                    <x-slot name="trigger">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </x-slot>
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <div class="ml-4 hidden-on-minimized flex items-center">
+                        <span class="text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
+                        <x-dropdown align="right" width="40">
+                            <x-slot name="trigger">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </x-slot>
 
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('admin.profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                    </x-slot>
-                </x-dropdown>
-                </br>
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-row justify-between items-center h-12">
-                        <div class="flex flex-row-shrink-0">
-                            <span class="text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
-                        </div>
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('admin.profile.edit')">
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
                     </div>
-                </div>
-            </div>
+                </li>
+                <li>
+                    <div class="ml-4 hidden-on-minimized flex items-center">
+                        <span class="text-gray-900 dark:text-white">Role: {{ Auth::guard()->name }}</span>
+                    </div>
+                </li>
+            </ul>
         </div>
 
+        <div class="h-5 py-4 bg-primary">
+            <hr class="10px">
+        </div>
 
         <ul class="space-y-2 font-medium">
             <li>
@@ -155,11 +159,11 @@
                 </x-nav-link>
             </li>
             <li>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
                     <a href="{{ route('admin.logout') }}"
                         onclick="event.preventDefault(); this.closest('form').submit();"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="flex items-center p-2 text-green-900 rounded-lg dark:text-white hover:bg-green-100 dark:hover:bg-green-700 group">
                         <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">

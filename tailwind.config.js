@@ -19,5 +19,13 @@ export default {
         },
     },
 
+    colors: {
+        'primary': '#FFD23F',
+        'secondary': '#FFD23F',
+        'reds': '#FFD23F',
+        'blue': '#3C2EFF',
+        'purple': '#D70EBD'
+    },
+
     plugins: [forms],
 };

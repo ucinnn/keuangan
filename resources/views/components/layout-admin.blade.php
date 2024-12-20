@@ -18,15 +18,11 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-
-
-        <!-- Page Heading -->
-
-
-        <!-- Page Content -->
         <main class='flex'>
             <div class="w-100">
-                <x-navbar-admin></x-navbar-admin>
+                <div class="w-64 bg-gray-800 text-white h-screen transition-all duration-300" id="sidebar">
+                    <x-navbar-admin></x-navbar-admin>
+                </div>
             </div>
             <div class="w-full">
                 @isset($header)

@@ -18,21 +18,27 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        @include('components.navbar-admin')
-
         <!-- Page Heading -->
         @isset($header)
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
-            </header>
-        @endisset
+        </div>
+        </div>
+        </header>
+    @endisset
 
-        <!-- Page Content -->
-        <main>
+    <!-- Page Content -->
+    <main class='flex flex-col '>
+        <div>
+            <x-navbar-admin></x-navbar-admin>
+        </div>
+        <div>
             {{ $slot }}
-        </main>
+        </div>
+
+    </main>
     </div>
 </body>
 

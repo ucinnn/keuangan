@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\Auth\LoginController;
 use App\Http\Controllers\admin\Auth\RegisteredUserController;
+use App\Http\Controllers\AdminProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
@@ -10,12 +11,11 @@ Route::prefix('admin')->middleware('guest:admin')->group(function () {
     Route::post('register', [RegisteredUserController::class, 'store']);
     Route::get('login', [LoginController::class, 'create'])->name('admin.login');
     Route::post('login', [LoginController::class, 'store']);
-
 });
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
-    Route::get('/dashboard', action: function (){
+    Route::get('/dashboard', action: function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
@@ -23,7 +23,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         return view('admin.manage-biaya');
     })->name('admin.manage-biaya');
 
-    Route::get('/manage-data-siswa', action: function (){
+    Route::get('/manage-data-siswa', action: function () {
         return view('admin.manage-data-siswa');
     })->name('admin.manage-data-siswa');
 
@@ -46,6 +46,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/manage-user', action: function () {
         return view('admin.manage-user');
     })->name('admin.manage-user');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', action: [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+        Route::patch('/profile', action: [AdminProfileController::class, 'update'])->name('admin.profile.update');
+        Route::delete('/profile', action: [AdminProfileController::class, 'destroy'])->name('admin.profile.destroy');
+    });
 
 
     Route::post('logout', [LoginController::class, 'destroy'])->name('admin.logout');

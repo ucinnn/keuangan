@@ -35,6 +35,18 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         return view('admin.manage-kelas');
     })->name('admin.manage-kelas');
 
+    Route::get('/create-kelas', action: function () {
+        return view('admin.create-kelas');
+    })->name('admin.create-kelas');
+
+    Route::get(uri: '/edit-kelas', action: function () {
+        return view('admin.edit-kelas');
+    })->name('admin.edit-kelas');
+
+    Route::get('/perpindahan-kelas', action: function () {
+        return view('admin.perpindahan-kelas');
+    })->name('admin.perpindahan-kelas');
+
     Route::get('/manage-tahun-ajaran', action: function () {
         return view('admin.manage-tahun-ajaran');
     })->name('admin.manage-tahun-ajaran');

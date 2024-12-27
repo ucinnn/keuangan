@@ -21,12 +21,12 @@
         <main class='flex'>
             <div class="w-100">
                 <div class="w-64 bg-gray-800 text-white h-screen transition-all duration-300" id="sidebar">
-                    <x-navbar-admin></x-navbar-admin>
+                    <x-navbar-tuunit></x-navbar-tuunit>
                 </div>
             </div>
             <div class="w-full">
                 @isset($header)
-                <header class="bg-green-800">
+                <header class="bg-green-800 sticky top-0">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>

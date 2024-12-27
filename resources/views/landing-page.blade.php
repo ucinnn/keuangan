@@ -32,27 +32,27 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-semibold mb-2">Admin</h3>
-                <form action="{{ route('admin.login') }}">
+                <a href="{{ route('admin.login') }}">
                     <x-primary-button class="ms-3">
                         {{ __('Log in') }}
                     </x-primary-button>
-                </form>
+                </a>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-semibold mb-2">TU PUSAT</h3>
-                <form action="{{ route('tupusat.login') }}">
+                <a href="{{ route('tupusat.login') }}">
                     <x-primary-button class="ms-3">
                         {{ __('Log in') }}
                     </x-primary-button>
-                </form>
+                </a>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-semibold mb-2">TU UNIT</h3>
-                <form action="{{ route('tuunit.login') }}">
+                <a href="{{ route('tuunit.login') }}">
                     <x-primary-button class="ms-3">
                         {{ __('Log in') }}
                     </x-primary-button>
-                </form>
+                </a>
             </div>
         </div>
     </main>

@@ -56,9 +56,12 @@
             </div>
         </div>
     </main>
-    <footer class="bg-blue-600 text-white text-center p-4">
-        <p>&copy; {{ date('Y') }} Yayasan Nurul Huda. Semua hak dilindungi.</p>
-    </footer>
+    <div class="fixed bottom-0 w-full">
+        <footer class="bg-blue-600 text-white text-center p-4">
+            <p>copyright &copy; {{ date('Y') }} Yayasan Nurul Huda</p>
+        </footer>
+    </div>
+
 </body>
 
 </html>

@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing-page');
 });
-Route::get('/admin-dashboard', function () {
-    return view('admin.dashboard');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin-auth.php';
-require __DIR__.'/tupusat-auth.php';
-require __DIR__.'/tuunit-auth.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin-auth.php';
+require __DIR__ . '/tupusat-auth.php';
+require __DIR__ . '/tuunit-auth.php';

@@ -178,5 +178,12 @@
                 </form>
             </li>
         </ul>
+
+    </div>
+    <div class="fixed bottom-0">
+        <footer class="text-white text-center p-0 w-30">
+            <p>copyright &copy; {{ date('Y') }} </p>
+            <p>Yayasan Nurul Huda</p>
+        </footer>
     </div>
 </aside>

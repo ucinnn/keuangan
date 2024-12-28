@@ -140,11 +140,11 @@
                     </svg>
                 </x-nav-link>
                 <ul id="dropdown-example"
-                    class="py-2 space-y-2 {{ request()->routeIs('admin.create-kelas') || request()->routeIs('admin.perpindahan-kelas') ? '' : 'hidden' }}">
+                    class="py-2 space-y-2 {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.perpindahan-kelas') ? '' : 'hidden' }}">
                     <li>
-                        <a href="{{ route('admin.create-kelas') }}"
+                        <a href="{{ route('admin.manage-kelas') }}"
                             class="flex items-center w-full p-2 text-green-900 transition duration-75 rounded-lg pl-11 group hover:bg-green-100 dark:text-white dark:hover:bg-green-700
-                            {{ request()->routeIs('admin.create-kelas') ? 'bg-green-900' : '' }}">Create
+                            {{ request()->routeIs('admin.manage-kelas') ? 'bg-green-900' : '' }}">CRU
                             Kelas</a>
                     </li>
                     <li>

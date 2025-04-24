@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreign('name')->references('name')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('admin'); // Menyimpan ID dari unitpendidikan
+            $table->foreign('role')->references('peran_user')->on('role')->onUpdate('restrict')->onDelete('restrict');
             $table->rememberToken();
             $table->timestamps();
         });

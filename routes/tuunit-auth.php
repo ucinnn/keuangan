@@ -15,7 +15,7 @@ Route::prefix('tuunit')->middleware('guest:tuunit')->group(function () {
 Route::prefix('tuunit')->middleware('auth:tuunit')->group(function () {
 
     Route::get('/dashboard', function () {
-        return view(view: 'tuunit.dashboard');
+        return view('tuunit.dashboard');
     })->name('tuunit.dashboard');
 
     Route::get('/manage-transaksi', action: function () {

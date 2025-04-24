@@ -18,7 +18,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        @include('layouts.navigation')
+
 
         <!-- Page Heading -->
         @isset($header)
@@ -30,8 +30,14 @@
         @endisset
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
+        <main class='flex flex-col '>
+            <div>
+                <x-navbar-tuunit></x-navbar-tuunit>
+            </div>
+            <div>
+                {{ $slot }}
+            </div>
+
         </main>
     </div>
 </body>

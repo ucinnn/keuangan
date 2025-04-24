@@ -21,6 +21,6 @@ class TuPusat extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.tu-pusat');
+        return view('components.tupusat');
     }
 }

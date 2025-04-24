@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -11,8 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jenispembayaran', function (Blueprint $table) {
-            $table->id();
+        Schema::create('tahunAjaran', function (Blueprint $table) {
+            $table->id('id');
+            $table->year('tahun_ajaran');
+            $table->date('awal');
+            $table->date('akhir');
+            $table->enum('status', ['Aktif', 'Non Aktif']);
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenispembayaran');
+        Schema::dropIfExists('tahunajaran');
     }
 };

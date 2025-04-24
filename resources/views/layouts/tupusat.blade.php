@@ -32,7 +32,7 @@
         <!-- Page Content -->
         <main class='flex flex-col '>
             <div>
-                <x-navbar-admin></x-navbar-admin>
+                <x-navbar-tupusat></x-navbar-tupusat>
             </div>
             <div>
                 {{ $slot }}

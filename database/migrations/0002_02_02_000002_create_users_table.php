@@ -12,13 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->id()->primary(); // BIGINT AUTO_INCREMENT
+            $table->string('name', 255)->unique(); // VARCHAR(255)
+            $table->string('email', 255)->unique(); // VARCHAR(255) dengan unique constraint
+            $table->timestamp('email_verified_at')->nullable(); // TIMESTAMP bisa NULL
+            $table->string('username', 255)->unique(); // VARCHAR(255) dengan unique constraint
+            $table->string('password', 255); // VARCHAR(255)
+
+            $table->string('role'); // Menyimpan ID dari unitpendidikan
+            $table->foreign('role')->references('peran_user')->on('role');
+
+            $table->bigInteger('no_telp')->nullable(); // BIGINT bisa NULL
+            $table->enum('namaUnit',  ['-', 'TK', 'SD', 'SMP', 'SMA', 'MADIN', 'TPQ', 'YA PONDOK', 'TIDAK PONDOK'])->nullable(); // Menyimpan ID dari unitpendidikan
+            $table->foreign('namaUnit')->references('namaUnit')->on('unitpendidikan');
+
+
+            $table->string('remember_token', 100)->nullable(); // VARCHAR(100) bisa NULL
+            $table->timestamps(); // created_at dan updated_at otomatis ditambahkan
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

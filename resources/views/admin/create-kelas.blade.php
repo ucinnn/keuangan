@@ -6,6 +6,18 @@
     <div class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-semibold mb-6">Tambah Data Kelas</h2>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+@endif
+
         <form action="{{ route('admin.submitt') }}" method="POST">
             @csrf
 
@@ -19,7 +31,7 @@
                 <!-- Unit Pendidikan -->
                 <div class="mb-4">
                     <label for="unitpendidikan_id" class="block text-gray-700 mb-2">Unit Pendidikan</label>
-                    <select id="unitpendidikan_id" name="unitpendidikan_id" class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-green-300">
+                    <select id="unitpendidikan_id" name="unitpendidikan_id" class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-green-300" required>
                         <option value="" disabled selected>Pilih Unit Pendidikan</option>
                         @foreach($unitpendidikan as $item)
                             <option value="{{ $item->id }}">{{ $item->namaUnit }}</option>
@@ -30,13 +42,13 @@
                 <!-- Nama Kelas -->
                 <div class="mb-4">
                     <label for="nama_kelas" class="block text-gray-700 mb-2">Nama Kelas</label>
-                    <input id="nama_kelas" name="nama_kelas" type="text" class="w-full px-3 py-2 border rounded" placeholder="Nama Kelas">
+                    <input id="nama_kelas" name="nama_kelas" type="text" class="w-full px-3 py-2 border rounded" placeholder="Nama Kelas" required>
                 </div>
 
                 <!-- Grade -->
                 <div class="mb-4">
                     <label for="grade" class="block text-gray-700 mb-2">Grade</label>
-                    <select id="grade" name="grade" class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-green-300">
+                    <select id="grade" name="grade" class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-green-300" required>
                         <option value="" disabled selected>Pilih Grade</option>
                         <option value="-">-</option>
                         <option value="A">A</option>
@@ -51,16 +63,16 @@
                 <!-- Keterangan -->
                 <div class="mb-4">
                     <label for="keterangan" class="block text-gray-700 mb-2">Keterangan</label>
-                    <input id="keterangan" name="keterangan" type="text" class="w-full px-3 py-2 border rounded" placeholder="Keterangan">
+                    <input id="keterangan" name="keterangan" type="text" class="w-full px-3 py-2 border rounded" placeholder="Keterangan" required>
                 </div>
 
                 <!-- Status -->
                 <div class="mb-4">
                     <label for="status" class="block text-gray-700 mb-2">Status</label>
                     <select id="status" name="status_display" class="w-full px-4 py-2 border rounded-md bg-gray-100" disabled>
-                        <option value="Aktif" selected>Aktif</option>
+                        <option value="AKTIF" selected>Aktif</option>
                     </select>
-                    <input type="hidden" name="status" value="Aktif">
+                    <input type="hidden" name="status" value="AKTIF">
                 </div>
             </div>
 

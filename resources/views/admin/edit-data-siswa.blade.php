@@ -15,6 +15,20 @@
     <div class="max-w-4xl mx-auto mt-10">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold mb-6">Ubah Data Siswa</h2>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+@endif
+
+            <!-- Form Ubah Data Siswa -->
             <form action="{{ route('admin.updateSiswa', $siswas->id) }}" method="POST" class="space-y-4">
                 @csrf
 
@@ -163,6 +177,20 @@
                     </button>
                 </div>
             </form>
+            <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const nis = document.getElementById('nis').value;
+
+        if (nis.length < 7) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Validasi Gagal',
+                text: 'NIS minimal terdiri dari 7 digit.',
+            });
+        }
+    });
+</script>
         </div>
     </div>
 </x-layout-admin>

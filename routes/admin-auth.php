@@ -33,11 +33,6 @@ Route::prefix('admin')->middleware('auth:admin', 'verified')->group(function () 
         Route::get('/perpindahan-kelas', [PerpindahanKelasController::class, 'index'])->name('admin.perpindahan-kelas');
         Route::post('/perpindahan-kelas', [PerpindahanKelasController::class, 'proses'])->name('admin.proses');
     });
-    
-
-    // Route::get('/perpindahan-kelas', action: function () {
-    //     return view('admin.perpindahan-kelas');
-    // })->name('admin.perpindahan-kelas');
 
     Route::middleware('auth')->group(function () {
         Route::get('/manage-data-siswa', [SiswaController::class, 'index'])->name('admin.manage-data-siswa');
@@ -60,9 +55,8 @@ Route::prefix('admin')->middleware('auth:admin', 'verified')->group(function () 
 
     Route::middleware('auth')->group(function () {
         Route::get('/manage-kelas', [KelasController::class, 'index'])->name('admin.manage-kelas');
-        // Route::get('/perpindahan-kelas', [PindahKelasController::class, 'showData'])->name('admin.perpindahan-kelas');
         Route::get('/create-kelas', [KelasController::class, 'create'])->name('admin.create-kelas');
-        Route::post('/submitt', [KelasController::class, 'store'])->name('admin.submitt');
+        Route::post('/submitt', [KelasController::class, 'submitt'])->name('admin.submitt');
         Route::get('/kelas/{id}/edit', [KelasController::class, 'editt'])->name('admin.edit-kelas');
         Route::post('/{id}/updatee', [KelasController::class, 'updatee'])->name('admin.updatee');
     });

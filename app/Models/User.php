@@ -59,4 +59,24 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UnitPendidikan::class, 'unitpendidikan_id', 'id');
     }
+    // Di model User
+public function admin()
+{
+    return $this->hasOne(Admin::class, 'user_id'); // BUKAN 'users_id'
+}
+
+// Di model User
+public function tupusat()
+{
+    return $this->hasOne(Tupusat::class, 'user_id'); // BUKAN 'users_id'
+}
+
+
+// Di model User
+public function tuunit()
+{
+    return $this->hasOne(Tuunit::class, 'user_id'); // BUKAN 'users_id'
+}
+
+
 }

@@ -5,6 +5,19 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-semibold mb-6">Ubah Data Tahun Ajaran</h2>
 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+@endif
+
+
             <form action="{{ route('admin.updateTahunAjaran', $tahunajaran->id) }}" method="POST">
                 @csrf
                 <div class="space-y-6">

@@ -18,6 +18,13 @@
             </div>
 
             <div class="bg-white p-4 rounded shadow">
+            @if (session('success'))
+    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+        <strong>Sukses!</strong> {{ session('success') }}
+    </div>
+@endif
+
+
                 <div class="flex justify-between items-center mb-4">
                     <div class="flex items-center space-x-4">
                         <!-- Filter Status -->
@@ -139,7 +146,6 @@
         </div>
     </div>
 
-    <script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const searchInput = document.querySelector('input[name="search"]');

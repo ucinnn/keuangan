@@ -38,6 +38,18 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold mb-6">Ubah Data Akun User</h2>
 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+@endif
+
             <form action="{{ route('admin.updateuserrr', $users->id) }}" method="POST" class="space-y-4">
                 @csrf
                 @method('POST')
@@ -46,8 +58,8 @@
 
                 <div class="flex items-center space-x-4">
                     <label for="nama_user" class="text-sm font-medium text-gray-700 w-1/4">Nama User</label>
-                    <input type="text" id="nama_user" name="name" value="{{ old('name', $users->name) }}"
-                        class="w-3/4 px-4 py-2 border rounded-md" required>
+                    <input type="text" id="$users->users?name" name="name" value="{{ old('name', $users->name) }}"
+                        class="w-3/4 px-4 py-2 border rounded-md">
                 </div>
 
                 <div class="flex items-center space-x-4">
@@ -58,8 +70,7 @@
 
                 <div class="flex items-center space-x-4">
                     <label for="no_telp" class="text-sm font-medium text-gray-700 w-1/4">No. Telp/WA</label>
-                    <input type="text" id="no_telp" name="no_telp" value="{{ old('no_telp', $users->no_telp) }}"
-                        class="w-3/4 px-4 py-2 border rounded-md" required>
+                    <input type="text" id="no_telp" name="no_telp" pattern="\d+" inputmode="numeric" minlength="10" value="{{ old('no_telp', $users->no_telp) }}" class="w-3/4 px-4 py-2 border rounded-md" required>
                 </div>
 
                 <div class="flex items-center space-x-4">

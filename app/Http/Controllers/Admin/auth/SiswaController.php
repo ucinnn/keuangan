@@ -24,6 +24,17 @@ class SiswaController extends Controller
 
     function submitSiswa (Request $request)
     {
+        $request->validate([
+            'nis' => 'required|numeric|digits_between:7,20',
+            'nisn' => 'required|numeric',
+            'nama' => 'required|string',
+            // tambahkan validasi lain jika perlu
+        ], [
+            'nis.numeric' => 'NIS harus berupa angka.',
+            'nis.digits_between' => 'NIS minimal terdiri dari 7 digit.',
+            'nisn.numeric' => 'NISN harus berupa angka.',
+        ]);
+
         $siswas = new Siswa();
         $siswas->nis = $request->nis;
         $siswas->nisn = $request->nisn;
@@ -41,9 +52,18 @@ class SiswaController extends Controller
         // $siswas->unitPendidikanInformal = $request->unitPendidikanInformal;
         // $siswas->statusPondok = $request->statusPondok;
         $siswas->status = $request->status;
+        // Cek NIS apakah sudah ada
+if (Siswa::where('nis', $request->nis)->exists()) {
+    return redirect()->back()->withErrors(['nis' => 'Data NIS telah digunakan.'])->withInput();
+}
+
+// Cek NISN apakah sudah ada
+if (Siswa::where('nisn', $request->nisn)->exists()) {
+    return redirect()->back()->withErrors(['nisn' => 'Data NISN telah digunakan.'])->withInput();
+}
         $siswas->save();
 
-        return redirect()->route('admin.manage-data-siswa');
+        return redirect()->route('admin.manage-data-siswa')->with('success', 'Data Siswa berhasil ditambahkan.');
     }
 
     function editSiswa ($id) {
@@ -54,6 +74,17 @@ class SiswaController extends Controller
     }
 
     function updateSiswa (Request $request, $id) {
+        $request->validate([
+            'nis' => 'required|numeric|digits_between:7,20',
+            'nisn' => 'required|numeric',
+            'nama' => 'required|string',
+            // tambahkan validasi lain jika perlu
+        ], [
+            'nis.numeric' => 'NIS harus berupa angka.',
+            'nis.digits_between' => 'NIS minimal terdiri dari 7 digit.',
+            'nisn.numeric' => 'NISN harus berupa angka.',
+        ]);
+
         $siswas = Siswa::find($id);
         $siswas->nis = $request->nis;
         $siswas->nisn = $request->nisn;
@@ -71,9 +102,18 @@ class SiswaController extends Controller
         // $siswas->unitPendidikanInformal = $request->unitPendidikanInformal;
         // $siswas->statusPondok = $request->statusPondok;
         $siswas->status = $request->status;
+        // Cek NIS (tidak boleh sama kecuali milik ID yang sedang diedit)
+if (Siswa::where('nis', $request->nis)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['nis' => 'Data NIS telah digunakan.'])->withInput();
+}
+
+// Cek NISN
+if (Siswa::where('nisn', $request->nisn)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['nisn' => 'Data NISN telah digunakan.'])->withInput();
+}
         $siswas->update();
 
-        return redirect()->route('admin.manage-data-siswa');
+        return redirect()->route('admin.manage-data-siswa')->with('success', 'Data Siswa berhasil diperbarui.');
     }
 
     public function detailSiswa($id)
@@ -94,7 +134,7 @@ class SiswaController extends Controller
         $data->move('DataSiswa', $namaFile);
 
         Excel::import(new SiswaImport, \public_path('/DataSiswa/' . $namaFile));
-        return redirect()->route('admin.manage-data-siswa');
+        return redirect()->route('admin.manage-data-siswa')->with('success', 'Data Siswa berhasil Diimpor / Ditambahkan.');
     }
 
     public function index(Request $request)

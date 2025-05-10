@@ -47,4 +47,11 @@ class Admin extends Authenticatable
             'password' => 'hashed',
         ];
     }
+// Admin.php
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+
 }

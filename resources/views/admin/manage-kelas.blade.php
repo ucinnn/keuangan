@@ -16,6 +16,12 @@
                 <div class="text-2xl font-bold">Manajemen Data Kelas</div>
             </div>
             <div class="bg-white p-4 rounded shadow">
+            @if (session('success'))
+    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+        <strong>Sukses!</strong> {{ session('success') }}
+    </div>
+@endif
+
                 <div class="flex justify-between items-center mb-4">
                     <div class="flex items-center space-x-4">
                         <select id="filter-nama-unit" class="border border-gray-300 rounded p-2 text-sm">
@@ -26,7 +32,7 @@
                             <option value="SMP">SMP</option>
                             <option value="SMA">SMA</option>
                             <option value="TPQ">TPQ</option>
-                            <option value="PONDOK">PONDOK</option>
+                            <option value="YA PONDOK">PONDOK</option>
                             <option value="MADIN">MADIN</option>
                         </select>
 
@@ -43,8 +49,8 @@
 
                         <select id="filter-status" class="border border-gray-300 rounded p-2 text-sm">
                             <option value="">Pilih Status</option>
-                            <option value="Aktif">Aktif</option>
-                            <option value="Nonaktif">Nonaktif</option>
+                            <option value="AKTIF">Aktif</option>
+                            <option value="TIDAK AKTIF">Nonaktif</option>
                         </select>
                     </div>
                     <div class="ml-auto">
@@ -81,14 +87,12 @@
                 </div>
 
                 <div class="mb-4">
-                <span class="text-sm font-medium text-gray-700">Total Data: {{ $kelas->total() }}</span>
-
+                    <span id="totalItems" class="text-sm font-medium text-gray-700">Total Data: {{ $kelas->total() }}</span>
                 </div>
+                
+                <div id="noResultsMessage" class="hidden p-4 bg-yellow-200 text-yellow-800 rounded-lg mb-4"><p>Maaf, saat ini tidak ada data Kas yang tersedia.</p></div>
 
-                <!-- Notifikasi jika hasil pencarian kosong -->
-                <div id="noResultsMessage" class="hidden p-4 bg-yellow-200 text-yellow-800 rounded-lg mb-4">
-                    <p>Maaf, saat ini tidak ada data Kelas yang tersedia.</p>
-                </div>
+
 
                 <hr class="border-gray-300 mb-4" />
 
@@ -143,77 +147,53 @@
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-    const unitFilter = document.getElementById("filter-nama-unit");
-    const gradeFilter = document.getElementById("filter-grade");
-    const statusFilter = document.getElementById("filter-status");
-    const searchInput = document.getElementById("nama_kelas_filter");
-    const tableBody = document.getElementById("kelas-table-body");
-    const rows = tableBody.querySelectorAll("tr");
-    const totalItems = document.getElementById("totalItems");
-    const noResultsMessage = document.getElementById("noResultsMessage");
+    document.addEventListener("DOMContentLoaded", function () {
+        const unitFilter = document.getElementById("filter-nama-unit");
+        const gradeFilter = document.getElementById("filter-grade");
+        const statusFilter = document.getElementById("filter-status");
+        const searchInput = document.getElementById("nama_kelas_filter");
+        const tableBody = document.getElementById("kelas-table-body");
+        const rows = tableBody.querySelectorAll("tr");
+        const totalItems = document.getElementById("totalItems");
+        const noResultsMessage = document.getElementById("noResultsMessage");
 
-    function filterTable() {
-        let visibleCount = 0;
-        const unit = unitFilter.value.toLowerCase();
-        const grade = gradeFilter.value.toLowerCase();
-        const status = statusFilter.value.toLowerCase();
-        const searchTerm = searchInput.value.toLowerCase();
+        function filterTable() {
+            let visibleCount = 0;
+            const unit = unitFilter.value.toLowerCase();
+            const grade = gradeFilter.value.toLowerCase();
+            const status = statusFilter.value.toLowerCase();
+            const searchTerm = searchInput.value.toLowerCase();
 
-        rows.forEach(row => {
-            const unitCell = row.cells[1].innerText.toLowerCase();
-            const namaKelasCell = row.cells[2].innerText.toLowerCase();
-            const gradeCell = row.cells[3].innerText.toLowerCase();
-            const statusCell = row.cells[5].innerText.toLowerCase();
+            rows.forEach(row => {
+                const unitCell = row.cells[1].innerText.toLowerCase();
+                const namaKelasCell = row.cells[2].innerText.toLowerCase();
+                const gradeCell = row.cells[3].innerText.toLowerCase();
+                const statusCell = row.cells[5].innerText.toLowerCase();
 
-            const isMatch = 
-                (unit === "" || unitCell === unit) &&
-                (grade === "" || gradeCell === grade) &&
-                (status === "" || statusCell === status) &&
-                (namaKelasCell.includes(searchTerm));
+                const isMatch = 
+                    (unit === "" || unitCell === unit) &&
+                    (grade === "" || gradeCell === grade) &&
+                    (status === "" || statusCell === status) &&
+                    (namaKelasCell.includes(searchTerm));
 
-            row.style.display = isMatch ? "" : "none";
-            if (isMatch) visibleCount++;
-        });
-
-        totalItems.textContent = `Total Data: ${visibleCount}`;
-        noResultsMessage.classList.toggle("hidden", visibleCount > 0);
-    }
-
-    // Trigger filter on change
-    unitFilter.addEventListener("change", filterTable);
-    gradeFilter.addEventListener("change", filterTable);
-    statusFilter.addEventListener("change", filterTable);
-    searchInput.addEventListener("input", filterTable); // ini sudah ada sebelumnya
-});
-
-            // Fungsi untuk melakukan pencarian berdasarkan nama kelas
-            document.addEventListener("DOMContentLoaded", function () {
-                const namaKelasFilter = document.getElementById("nama_kelas_filter");
-                const tableBody = document.getElementById("kelas-table-body");
-                const rows = tableBody.querySelectorAll("tr");
-                const totalItems = document.getElementById("totalItems");
-                const noResultsMessage = document.getElementById("noResultsMessage");
-
-                namaKelasFilter.addEventListener("input", function () {
-                    let visibleCount = 0;
-                    const searchTerm = this.value.toLowerCase();
-
-                    rows.forEach(row => {
-                        const namaKelasCell = row.cells[2].innerText.toLowerCase();
-                        if (namaKelasCell.includes(searchTerm)) {
-                            row.style.display = "";
-                            visibleCount++;
-                        } else {
-                            row.style.display = "none";
-                        }
-                    });
-
-                    totalItems.textContent = `Total Data: ${visibleCount}`;
-                    noResultsMessage.classList.toggle("hidden", visibleCount > 0);
-                });
+                row.style.display = isMatch ? "" : "none";
+                if (isMatch) visibleCount++;
             });
-        </script>
+
+            totalItems.textContent = `Total Data: ${visibleCount}`;
+            noResultsMessage.classList.toggle("hidden", visibleCount > 0);
+        }
+
+        // Event listeners
+        unitFilter.addEventListener("change", filterTable);
+        gradeFilter.addEventListener("change", filterTable);
+        statusFilter.addEventListener("change", filterTable);
+        searchInput.addEventListener("input", filterTable);
+
+        // Trigger awal (biar kalau ada default value, tetap sinkron)
+        filterTable();
+    });
+</script>
     </body>
     </html>
 </x-layout-admin>

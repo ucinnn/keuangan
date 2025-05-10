@@ -16,6 +16,23 @@
                 <div class="text-2xl font-bold">Proses Perpindahan Kelas</div>
             </div>
             <div class="bg-white p-4 rounded shadow">
+            @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+        <strong class="font-bold">Terjadi Kesalahan:</strong>
+        <ul class="mt-2 list-disc list-inside text-sm">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="bg-green-100 text-green-800 px-4 py-2 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
                 <div class="flex items-center space-x-2 mb-2">
                     <label class="text-sm" for="entries">Show</label>
                     <form method="GET" action="{{ route('admin.perpindahan-kelas') }}">

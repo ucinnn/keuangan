@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('tuunits', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreign('name')->references('name')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('name', 255); // VARCHAR(255)
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('username');
+            $table->foreign('username')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('password');
             $table->string('role')->default('tuunit'); // Menyimpan ID dari unitpendidikan
             $table->foreign('role')->references('peran_user')->on('role')->onUpdate('restrict')->onDelete('restrict');

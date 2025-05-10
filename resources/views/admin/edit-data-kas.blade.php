@@ -5,6 +5,25 @@
     <div class="max-w-4xl mx-auto mt-10">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold mb-6">Ubah Data Kas</h2>
+
+                    @if(session('success'))
+                        <div class="mb-4 px-4 py-3 rounded bg-green-100 text-green-800 border border-green-300">
+                            <strong>Sukses!</strong> {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+@endif
+
             <form action="{{ route('admin.updateKas', $kas->id) }}" method="POST" class="space-y-4">
                 @csrf
 

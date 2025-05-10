@@ -18,6 +18,11 @@
                         <div class="text-2xl font-bold">Manajemen Data User</div>
                     </div>
                     <div class="bg-white p-4 rounded shadow">
+                    @if (session('success'))
+    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+        <strong>Sukses!</strong> {{ session('success') }}
+    </div>
+@endif
                         <div class="flex justify-between items-center mb-4">
                             <!-- Filter and Add User Section -->
                             <div class="flex items-center space-x-4">

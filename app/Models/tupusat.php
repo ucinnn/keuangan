@@ -47,4 +47,10 @@ class tupusat extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // Di model Admin
+public function user()
+{
+    return $this->belongsTo(User::class, 'user_id'); // Foreign key-nya adalah 'user_id'
+}
+
 }

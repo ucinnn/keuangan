@@ -21,6 +21,11 @@
                   </div>
 
                   <div class="bg-white p-4 rounded shadow">
+                    @if(session('success'))
+                        <div class="mb-4 px-4 py-3 rounded bg-green-100 text-green-800 border border-green-300">
+                            <strong>Sukses!</strong> {{ session('success') }}
+                        </div>
+                    @endif
                       <div class="flex justify-between items-center mb-4">
                       <form action="{{ route('admin.manage-data-kas') }}" method="GET" class="flex items-center space-x-4">
   <select id="kategori" name="kategori" class="border border-gray-300 rounded p-2 text-sm" onchange="this.form.submit()">
@@ -110,13 +115,6 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-1.036L6.75 17.75a2 2 0 11-2.829-2.829L13.5 4.5m1.061-1.061L17.5 7.5m-3.061-4.061a2 2 0 113.536 1.536L8.75 16.25a2 2 0 11-2.829-2.829L13.5 4.5m1.061-1.061z" />
                                                     </svg>
                                           Edit
-                                      </a>
-                                      <a href="{{ route('admin.manage-data-kas', $item->id) }}"class="inline-flex items-center px-3 py-1.5 bg-red-500 text-white text-xs font-medium rounded hover:bg-red-600 transition duration-150 ease-in-out"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2v6m-6 4h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
-                                                </svg>
-                                          Hapus
                                       </a>
                                     </div>
                                   </td>

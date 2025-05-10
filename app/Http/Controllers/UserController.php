@@ -27,17 +27,14 @@ class UserController extends Controller
     }
 
     $users = $usersQuery->paginate($perPage)->withQueryString();
-
+// dd($users);
     return view('admin.manage-user', compact('users', 'role'));
 }
-
-
 
     function createuser()
     {
         return view('admin.create-user');
     }
-
 
     //update data
     public function edituser($id)
@@ -45,11 +42,22 @@ class UserController extends Controller
         $users = User::findorFail($id); // Mendapatkan data user berdasarkan ID
         return view('admin.update-user', compact('users'));
     }
+    
     public function updateuserr(Request $request, $id)
     {
         $users = User::findorFail($id);
+        // Cek User (tidak boleh sama kecuali milik ID yang sedang diedit)
+if (User::where('username', $request->username)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['username' => 'Username telah digunakan.'])->withInput();
+}
+
+// Cek Email
+if (User::where('email', $request->email)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['email' => 'Email telah digunakan.'])->withInput();
+}
+
         $users->update($request->all());
-        return redirect()->route('admin.manage-user', $id)->with('success', 'Data berhasil di edit');
+        return redirect()->route('admin.manage-user', $id)->with('success', 'Data User berhasil diperbarui');
     }
 
     //delete data
@@ -57,7 +65,7 @@ class UserController extends Controller
     {
         $users = User::findorFail($id);
         $users->delete();
-        return redirect()->route('admin.manage-user', $id)->with('success', 'Data berhasil di hapus');
+        return redirect()->route('admin.manage-user', $id)->with('success', 'Data berhasil dihapus');
     }
 
     // Fungsi untuk menyimpan data user
@@ -67,12 +75,22 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama_user' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'no_telp' => 'required|numeric',
+            'no_telp' => ['required', 'regex:/^[0-9]+$/', 'min:10'],
             'username' => 'required|string|unique:users,username',
             'password' => 'required|string|min:6',
             'peran_user' => 'nullable|string|in:admin,tupusat,tuunit',
             'namaUnit' => 'nullable|string',
         ]);
+
+        // Cek User apakah sudah ada
+        if (User::where('username', $request->username)->exists()) {
+            return redirect()->back()->withErrors(['username' => 'Username telah digunakan.'])->withInput();
+        }
+
+        // Cek Email apakah sudah ada
+        if (User::where('email', $request->email)->exists()) {
+            return redirect()->back()->withErrors(['email' => 'Email telah digunakan.'])->withInput();
+        }
 
         // Pastikan unit pendidikan valid jika role = tuunit
         if ($validated['peran_user'] === 'tuunit' && empty($validated['namaUnit'])) {
@@ -84,8 +102,8 @@ class UserController extends Controller
             $users = User::create([
                 'name' => $validated['nama_user'],
                 'email' => $validated['email'],
-                'username' => $validated['username'],
                 'password' => Hash::make($validated['password']),
+                'username' => $validated['username'],
                 'role' => $validated['peran_user'],
                 'no_telp' => $validated['no_telp'],
                 'namaUnit' => $validated['namaUnit'],
@@ -94,11 +112,12 @@ class UserController extends Controller
             // Simpan data berdasarkan role
             switch ($validated['peran_user']) {
                 case 'admin':
-                    $admin = Admin::create([
+                    Admin::create([
                         'user_id' => $users->id,
                         'name' => $validated['nama_user'],
                         'email' => $validated['email'],
                         'password' => bcrypt($validated['password']),
+                        'username' => $validated['username'],
                         'role' => $validated['peran_user'],
                     ]);
                     break;
@@ -109,6 +128,7 @@ class UserController extends Controller
                         'name' => $validated['nama_user'],
                         'email' => $validated['email'],
                         'password' => bcrypt($validated['password']),
+                        'username' => $validated['username'],
                         'role' => $validated['peran_user'],
                     ]);
                     break;
@@ -119,12 +139,13 @@ class UserController extends Controller
                         'name' => $validated['nama_user'],
                         'email' => $validated['email'],
                         'password' => bcrypt($validated['password']),
+                        'username' => $validated['username'],
                         'role' => $validated['peran_user'],
                     ]);
                     break;
             }
         });
 
-        return redirect()->route('admin.manage-user')->with('success', 'User berhasil ditambahkan!');
+        return redirect()->route('admin.manage-user')->with('success', 'Data User berhasil ditambahkan!');
     }
 }

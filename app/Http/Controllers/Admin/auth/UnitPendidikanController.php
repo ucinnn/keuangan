@@ -43,31 +43,44 @@ class UnitPendidikanController extends Controller
     function createUnitPendidikan () {
         return view("admin.create-manage-unit-pendidikan");
     }
-    function submitUnitPendidikan (Request $request)
-    {
-        $unitpendidikan = new UnitPendidikan();
-        $unitpendidikan->kategori = $request->kategori;
-        $unitpendidikan->namaUnit = $request->namaUnit;
-        $unitpendidikan->status = $request->status;
-        $unitpendidikan->save();
+    
+    function submitUnitPendidikan(Request $request)
+{
+    // Simpan data jika belum ada
+    $unitpendidikan = new UnitPendidikan();
+    $unitpendidikan->kategori = $request->kategori;
+    $unitpendidikan->namaUnit = $request->namaUnit;
+    $unitpendidikan->status = $request->status;
+// Cek Nama Unit Pendidikan apakah sudah ada
+if (UnitPendidikan::where('namaUnit', $request->namaUnit)->exists()) {
+    return redirect()->back()->withErrors(['namaUnit' => 'Nama Unit Pendidikan telah digunakan.'])->withInput();
+}
+    $unitpendidikan->save();
 
-        return redirect()->route('admin.manage-unit-pendidikan');
-    }
+    return redirect()->route('admin.manage-unit-pendidikan')
+        ->with('success', 'Data Unit Pendidikan berhasil ditambahkan.');
+}
 
     function editUnitPendidikan ($id) {
         $unitpendidikan = UnitPendidikan::find($id);
         return view('admin.edit-manage-unit-pendidikan', compact('unitpendidikan'));
     }
 
-    function updateUnitPendidikan (Request $request, $id) {
-        $unitpendidikan = UnitPendidikan::find($id);
-        $unitpendidikan->kategori = $request->kategori;
-        $unitpendidikan->namaUnit = $request->namaUnit;
-        $unitpendidikan->status = $request->status;
-        $unitpendidikan->update();
+    function updateUnitPendidikan(Request $request, $id)
+{
+    $unitpendidikan = UnitPendidikan::find($id);
+    $unitpendidikan->kategori = $request->kategori;
+    $unitpendidikan->namaUnit = $request->namaUnit;
+    $unitpendidikan->status = $request->status;
+// Cek Nama Unit Pendidikan (tidak boleh sama kecuali milik ID yang sedang diedit)
+if (UnitPendidikan::where('namaUnit', $request->namaUnit)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['namaUnit' => 'Nama Unit telah digunakan.'])->withInput();
+}
+    $unitpendidikan->update();
 
-        return redirect()->route('admin.manage-unit-pendidikan');
-    }
+    return redirect()->route('admin.manage-unit-pendidikan')
+        ->with('success', 'Data Unit Pendidikan berhasil diperbarui.');
+}
 
     function deleteUnitPendidikan ($id) {
         $unitpendidikan = UnitPendidikan::find($id);

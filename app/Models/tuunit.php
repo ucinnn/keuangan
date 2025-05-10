@@ -46,4 +46,10 @@ class tuunit extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    // Di model Admin
+public function user()
+{
+    return $this->belongsTo(User::class, 'user_id'); // Foreign key-nya adalah 'user_id'
+}
+
 }

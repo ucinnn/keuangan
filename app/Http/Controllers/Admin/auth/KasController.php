@@ -43,9 +43,13 @@ $kas = $query->paginate($entries)->appends($request->query());
         $kas->namaKas = $request->namaKas;
         $kas->kategori = $request->kategori;
         $kas->status = $request->status;
+        // Cek Nama Kas apakah sudah ada
+if (Kas::where('namaKas', $request->namaKas)->exists()) {
+    return redirect()->back()->withErrors(['namaKas' => 'Nama Kas telah digunakan.'])->withInput();
+}
         $kas->save();
 
-        return redirect()->route('admin.manage-data-kas');
+        return redirect()->route('admin.manage-data-kas')->with('success', 'Data Kas Berhasil Ditambahkan.');
     }
 
     public function editKas($id)
@@ -66,8 +70,12 @@ $kas = $query->paginate($entries)->appends($request->query());
         $kas->namaKas = $request->namaKas;
         $kas->kategori = $request->kategori;
         $kas->status = $request->status;
+        // Cek Nama Kas (tidak boleh sama kecuali milik ID yang sedang diedit)
+if (Kas::where('namaKas', $request->namaKas)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['namaKas' => 'Nama Kas telah digunakan.'])->withInput();
+}
         $kas->update();
 
-        return redirect()->route('admin.manage-data-kas');
+        return redirect()->route('admin.manage-data-kas')->with('success', 'Data Kas Berhasil Diperbarui.');
     }
 }

@@ -16,6 +16,19 @@
     <div class="max-w-4xl mx-auto mt-10">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold mb-6">Tambah Akun User</h2>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+@endif
+
             <form id="userForm" method="POST" action="{{ route('admin.submitUser') }}" class="space-y-4">
                 @csrf
 
@@ -35,7 +48,7 @@
                 <!-- Input Nomor Telepon -->
                 <div class="flex items-center space-x-4">
                     <label for="no_telp" class="text-sm font-medium text-gray-700 w-1/4">No. Telp/WA</label>
-                    <input type="text" id="no_telp" name="no_telp" class="w-3/4 px-4 py-2 border rounded-md focus:ring focus:ring-green-300" required>
+                    <input type="text" id="no_telp" name="no_telp" pattern="\d+" inputmode="numeric" minlength="10" class="w-3/4 px-4 py-2 border rounded-md focus:ring focus:ring-green-300" required>
                 </div>
 
                 <!-- Input Username -->
@@ -85,21 +98,7 @@
                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Simpan</button>
                 </div>
 
-                <!-- Pesan Success atau Error -->
-                @if (session('success'))
-                    <div class="text-green-500 p-4">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if ($errors->any())
-                    <div class="text-red-500 p-4">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                
             </form>
         </div>
     </div>
@@ -122,16 +121,6 @@
 
             peranUser.addEventListener('change', toggleUnitPendidikan);
             toggleUnitPendidikan(); // Call on load
-
-            // Pop-up Success
-            @if (session('success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Data berhasil disimpan!',
-                    text: '{{ session('success') }}',
-                    confirmButtonText: 'OK'
-                });
-            @endif
         });
     </script>
 </x-layout-admin>

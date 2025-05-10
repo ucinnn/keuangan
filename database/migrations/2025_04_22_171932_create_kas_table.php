@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kas', function (Blueprint $table) {
             $table->id();
-            $table->string('namaKas');
+            $table->string('namaKas')->unique();
             $table->enum('kategori', ['Pemasukan', 'Pengeluaran']);
             $table->enum('status', ['Aktif', 'Non Aktif']);
             $table->timestamps();

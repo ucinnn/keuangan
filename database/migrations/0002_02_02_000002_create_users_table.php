@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id()->primary(); // BIGINT AUTO_INCREMENT
-            $table->string('name', 255)->unique(); // VARCHAR(255)
+            $table->string('name', 255); // VARCHAR(255)
             $table->string('email', 255)->unique(); // VARCHAR(255) dengan unique constraint
             $table->timestamp('email_verified_at')->nullable(); // TIMESTAMP bisa NULL
             $table->string('username', 255)->unique(); // VARCHAR(255) dengan unique constraint

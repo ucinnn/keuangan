@@ -25,6 +25,15 @@ class TahunAjaranController extends Controller
         $tahunajaran->awal = $request->awal;
         $tahunajaran->akhir = $request->akhir; 
         $tahunajaran->status = $request->status;
+        // Cek Tahun Ajaran apakah sudah ada
+if (TahunAjaran::where('tahun_ajaran', $request->tahun_ajaran)->exists()) {
+    return redirect()->back()->withErrors(['tahun_ajaran' => 'Tahun Ajaran telah digunakan.'])->withInput();
+}
+
+// Cek Tahun Awal apakah sudah ada
+if (TahunAjaran::where('awal', $request->awal)->exists()) {
+    return redirect()->back()->withErrors(['awal' => 'Tahun Awal telah digunakan.'])->withInput();
+}
         $tahunajaran->save();
 
         return redirect()->route('admin.manage-tahun-ajaran')->with('success', 'Tahun ajaran berhasil ditambah.');
@@ -45,7 +54,19 @@ class TahunAjaranController extends Controller
         ]);
 
         $tahunajaran->tahun_ajaran = $request->tahun_ajaran;
+        $tahunajaran->awal = $request->awal;
+        $tahunajaran->akhir = $request->akhir;
         $tahunajaran->status = $request->status;
+        // Cek Tahun Ajaran (tidak boleh sama kecuali milik ID yang sedang diedit)
+if (TahunAjaran::where('tahun_ajaran', $request->tahun_ajaran)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['tahun_ajaran' => 'Tahun Ajaran telah digunakan.'])->withInput();
+}
+
+// Cek Tahun Awal
+if (TahunAjaran::where('awal', $request->awal)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['awal' => 'Tahun Awal telah digunakan.'])->withInput();
+}
+
         $tahunajaran->update();
 
         return redirect()->route('admin.manage-tahun-ajaran')->with('success', 'Tahun ajaran berhasil diperbarui.');

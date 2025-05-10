@@ -60,6 +60,8 @@ class PerpindahanKelasController extends Controller
             'siswa_ids' => 'required|array',
             'kelas_tujuan' => 'required|exists:kelas,id',
             'unit_tujuan' => 'required|exists:unitpendidikan,id',
+        ], [
+            'siswa_ids.required' => 'Silakan pilih minimal satu siswa untuk dipindahkan.',
         ]);
 
         foreach ($request->siswa_ids as $id) {
@@ -69,6 +71,6 @@ class PerpindahanKelasController extends Controller
             $siswa->save();
         }
 
-        return redirect()->route('admin.perpindahan-kelas')->with('success', 'Perpindahan kelas berhasil!');
+        return redirect()->route('admin.perpindahan-kelas')->with('success', 'Data Siswa telah berhasil diproses!');
     }
 }

@@ -5,6 +5,26 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-semibold mb-6">Ubah Data Unit Pendidikan</h2>
 
+            {{-- ALERT MESSAGE --}}
+            @if (session('success'))
+                <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+@endif
+
+
             <form action="{{ route('admin.updateUnitPendidikan', $unitpendidikan->id) }}" method="POST">
                 @csrf
 
@@ -14,7 +34,7 @@
                         <label class="w-1/3 text-sm font-medium text-gray-700">Kategori:</label>
                         <select class="w-2/3 p-2 border border-gray-300 rounded-md" name="kategori">
                             <option value="-" {{ $unitpendidikan->kategori == '-' ? 'selected' : '' }}>-</option>
-                            <option value="formal" {{ $unitpendidikan->kategori == 'Formal' ? 'selected' : '' }}>Formal</option>
+                            <option value="formal" {{ $unitpendidikan->kategori == 'formal' ? 'selected' : '' }}>Formal</option>
                             <option value="Informal" {{ $unitpendidikan->kategori == 'Informal' ? 'selected' : '' }}>Informal</option>
                             <option value="Pondok" {{ $unitpendidikan->kategori == 'Pondok' ? 'selected' : '' }}>Pondok</option>
                         </select>

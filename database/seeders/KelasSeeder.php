@@ -327,14 +327,6 @@ DB::table('kelas')->insert([
 
 DB::table('kelas')->insert([
   'unitpendidikan_id' => '6',
-  'nama_kelas' => 'YA PONDOK',
-  'status' => 'AKTIF',
-  'grade' => '-',
-  'keterangan' => 'Data Siswa PONDOK',
-]);
-
-DB::table('kelas')->insert([
-  'unitpendidikan_id' => '7',
   'nama_kelas' => 'MADIN',
   'status' => 'AKTIF',
   'grade' => '-',
@@ -342,11 +334,27 @@ DB::table('kelas')->insert([
 ]);
 
 DB::table('kelas')->insert([
-  'unitpendidikan_id' => '8',
+  'unitpendidikan_id' => '7',
   'nama_kelas' => 'TPQ',
   'status' => 'AKTIF',
   'grade' => '-',
   'keterangan' => 'Data Siswa TPQ',
+]);
+
+DB::table('kelas')->insert([
+  'unitpendidikan_id' => '8',
+  'nama_kelas' => 'YA PONDOK',
+  'status' => 'AKTIF',
+  'grade' => '-',
+  'keterangan' => 'Data Siswa PONDOK',
+]);
+
+DB::table('kelas')->insert([
+  'unitpendidikan_id' => '9',
+  'nama_kelas' => 'TIDAK PONDOK',
+  'status' => 'AKTIF',
+  'grade' => '-',
+  'keterangan' => 'Data Siswa TIDAK PONDOK',
 ]);
 
     }

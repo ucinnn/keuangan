@@ -43,9 +43,6 @@ class KelasController extends Controller
     return view('admin.manage-kelas', compact('kelas'));
 }
 
-
-
-
     public function create()
     {
         $unitpendidikan = UnitPendidikan::all();
@@ -63,12 +60,10 @@ class KelasController extends Controller
     {
         $kelas = kelas::findorFail($id);
         $kelas->update($request->all());
-        return redirect()->route('admin.manage-kelas', $id)->with('success', 'Data berhasil di edit');
+        return redirect()->route('admin.manage-kelas', $id)->with('success', 'Data Kelas berhasil diperbarui');
     }
 
-
-
-    public function store(Request $request)
+    public function submitt(Request $request)
     {
         \Log::info($request->all());
 
@@ -81,6 +76,16 @@ class KelasController extends Controller
             'keterangan' => 'required|string|max:500',
         ]);
 
+                // Cek Nama Kelas apakah sudah ada
+if (Kelas::where('nama_kelas', $request->nama_kelas)->exists()) {
+    return redirect()->back()->withErrors(['nama_kelas' => 'Data Nama Kelas telah digunakan.'])->withInput();
+}
+
+// Cek Keterangan apakah sudah ada
+if (Kelas::where('keterangan', $request->keterangan)->exists()) {
+    return redirect()->back()->withErrors(['keterangan' => 'Data Keterangan telah digunakan.'])->withInput();
+}
+
         // Create a new record in the 'kelas' table
         $kelas = Kelas::create([  
             'unitpendidikan_id' => $validated['unitpendidikan_id'],
@@ -91,49 +96,6 @@ class KelasController extends Controller
             
         ]);
 
-        return redirect()->route('admin.manage-kelas', compact('kelas'))->with('success', 'Kelas berhasil ditambah');
+        return redirect()->route('admin.manage-kelas', compact('kelas'))->with('success', 'Data Kelas berhasil ditambahkan.');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// public function store(Request $request)
-// {
-//     Kelas::create($request->all());
-//     return redirect()->route('admin.manage-kelas')->with('success', 'Kelas berhasil ditambahkan');
-// }
-
-// public function edit($id)
-// {
-//     $kelas = Kelas::find($id);
-//     return view('admin.edit-kelas', compact('kelas'));
-// }
-
-// public function update(Request $request, $id)
-// {
-//     $kelas = Kelas::find($id);
-//     $kelas->update($request->all());
-    
-// }
-
-// }

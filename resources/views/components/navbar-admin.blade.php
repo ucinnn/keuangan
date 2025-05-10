@@ -41,8 +41,8 @@
             <ul class="space-y-2 font-medium">
                 <li>
                     <div class="ml-4 hidden-on-minimized flex items-center">
-                        <span class="text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
-                        <x-dropdown align="right" width="40">
+                    <span class="text-gray-900 dark:text-white">{{ Auth::guard('admin')->user()?->username }}</span>
+                    <x-dropdown align="right" width="40">
                             <x-slot name="trigger">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">

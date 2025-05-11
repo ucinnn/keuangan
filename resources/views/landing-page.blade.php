@@ -17,7 +17,7 @@
 </head>
 
 <body class="bg-gray-100">
-    <header class="bg-blue-600 text-white p-6">
+    <header class="bg-green-900 text-white p-6">
         <h1 class="text-3xl font-bold">
             <center>Selamat Datang di Sistem Keuangan Yayasan Nurul Huda</center>
         </h1>
@@ -40,7 +40,7 @@
             </div>
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-semibold mb-2">TU PUSAT</h3>
-                <a href="{{ route('tupusat.login') }}">
+                <a href="{{ route('tupusat.dashboard') }}">
                     <x-primary-button class="ms-3">
                         {{ __('Log in') }}
                     </x-primary-button>
@@ -57,8 +57,8 @@
         </div>
     </main>
     <div class="fixed bottom-0 w-full">
-        <footer class="bg-blue-600 text-white text-center p-4">
-            <p>copyright &copy; {{ date('Y') }} Yayasan Nurul Huda</p>
+        <footer class="bg-green-900 text-white text-center p-4">
+            <p>Copyright &copy; {{ date('Y') }} Yayasan Nurul Huda</p>
         </footer>
     </div>
 

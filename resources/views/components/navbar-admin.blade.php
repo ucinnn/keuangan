@@ -12,6 +12,7 @@
             });
         });
     });
+
 </script>
 <style>
     .navbar-sticky-side {
@@ -20,10 +21,10 @@
 </style>
 
 
-<aside id="sidebar-multi-level-sidebar" class=" w-64 h-screen navbar-sticky-side bg-green-800" aria-label="Sidebar">
+<aside id="sidebar-multi-level-sidebar" class=" w-64 h-full navbar-sticky-side bg-green-800" aria-label="Sidebar">
     <!-- Header -->
     <header class="bg-white shadow ">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto h-12 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-12">
                 <div class="flex-shrink-0">
                     <h1 class="text-xl font-bold text-gray-900">ADMIN</h1>
@@ -87,7 +88,7 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link href="{{ route('admin.manage-user') }}" :active="request()->routeIs('admin.manage-user')">
+                <x-nav-link href="{{ route('admin.manage-user') }}" :active="request()->routeIs('admin.manage-user') || request()->routeIs('admin.create-user') || request()->routeIs('admin.update-user')">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                         <path
@@ -111,19 +112,37 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link href="{{ route('admin.manage-jenis-pembayaran') }}" :active="request()->routeIs('admin.manage-jenis-pembayaran')">
+                <x-nav-link aria-controls="dropdown-pembayaran" data-collapse-toggle="dropdown-pembayaran" :active="request()->routeIs('admin.manage-jenis-pembayaran') || request()->routeIs('admin.edit-jenis-pembayaran') || request()->routeIs('admin.create-jenis-pembayaran') || request()->routeIs('admin.jenis-pengeluaran') || request()->routeIs('admin.create-jenis-pengeluaran')"
+                    @click="toggleDropdown()">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                         <path
                             d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                     </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">Manage Jenis Pembayaran</span>
-                    <span
-                        class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300"></span>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Manage Pembayaran</span>
+                    <svg id="dropdown-arrow" class="w-4 h-4 transition-transform duration-200 transform"
+                        :class="{ 'rotate-180': dropdownOpen }" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
                 </x-nav-link>
+                <ul id="dropdown-pembayaran"
+                    class="py-2 space-y-2 {{ request()->routeIs('admin.manage-jenis-pembayaran') || request()->routeIs('admin.create-jenis-pembayaran') || request()->routeIs('admin.edit-jenis-pembayaran') || request()->routeIs('admin.jenis-pengeluaran') || request()->routeIs('admin.create-jenis-pengeluaran') ? '' : 'hidden' }}">
+                    <li>
+                        <a href="{{ route('admin.manage-jenis-pembayaran') }}"
+                            class="flex items-center w-full p-2 text-green-900 transition duration-75 rounded-lg pl-11 group hover:bg-green-100 dark:text-white dark:hover:bg-green-700
+                            {{ request()->routeIs('admin.manage-jenis-pembayaran') || request()->routeIs('admin.create-jenis-pembayaran') || request()->routeIs('admin.edit-jenis-pembayaran') ? 'bg-green-900' : '' }}">
+                            Jenis Pemasukan</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.jenis-pengeluaran') }}"
+                            class="flex items-center w-full p-2 text-green-900 transition duration-75 rounded-lg pl-11 group hover:bg-green-100 dark:text-white dark:hover:bg-green-700
+                            {{ request()->routeIs('admin.jenis-pengeluaran') || request()->routeIs('admin.create-jenis-pengeluaran') || request()->routeIs('admin.edit-jenis-pengeluaran') ? 'bg-green-900' : '' }}">Jenis Pengeluaran</a>
+                    </li>
+                </ul>
             </li>
             <li>
-                <x-nav-link aria-controls="dropdown-example" data-collapse-toggle="dropdown-example" :active="request()->routeIs('admin.manage-kelas') ||
+                <x-nav-link aria-controls="dropdown-kelas" data-collapse-toggle="dropdown-kelas" :active="request()->routeIs('admin.manage-kelas') ||
                     request()->routeIs('admin.create-kelas') ||
                     request()->routeIs('admin.perpindahan-kelas')"
                     @click="toggleDropdown()">
@@ -139,12 +158,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </x-nav-link>
-                <ul id="dropdown-example"
-                    class="py-2 space-y-2 {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.perpindahan-kelas') ? '' : 'hidden' }}">
+                <ul id="dropdown-kelas"
+                    class="py-2 space-y-2 {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.create-kelas') || request()->routeIs('admin.update-kelas') || request()->routeIs('admin.perpindahan-kelas') ? '' : 'hidden' }}">
                     <li>
                         <a href="{{ route('admin.manage-kelas') }}"
                             class="flex items-center w-full p-2 text-green-900 transition duration-75 rounded-lg pl-11 group hover:bg-green-100 dark:text-white dark:hover:bg-green-700
-                            {{ request()->routeIs('admin.manage-kelas') ? 'bg-green-900' : '' }}">CRU
+                            {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.create-kelas') || request()->routeIs('admin.update-kelas') ? 'bg-green-900' : '' }}">CRU
                             Kelas</a>
                     </li>
                     <li>
@@ -184,8 +203,8 @@
                     @csrf
                     <a href="{{ route('admin.logout') }}"
                         onclick="event.preventDefault(); this.closest('form').submit();">
-                        <x-danger-button class="ms-3">
-                            <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
+                        <x-danger-button class="ms-9">
+                            <span class ="flex-1 ms-33 whitespace-nowrap">Logout</span>
                         </x-danger-button>
                     </a>
                 </form>

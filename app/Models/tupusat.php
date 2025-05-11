@@ -12,7 +12,7 @@ class tupusat extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $guard = 'tupusat';
+    protected $guard = 'tupusats';
 
     /**
      * The attributes that are mass assignable.

@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\ResetPasswordNotification;
+
 
 class User extends Authenticatable
+
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'users'; // Nama tabel di database
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +25,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
+        'role',
+        'no_telp',
+        'namaUnit',
     ];
 
     /**
@@ -35,15 +43,27 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Relasi ke tabel `unitpendidikan` jika diperlukan.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function unitpendidikan()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->belongsTo(UnitPendidikan::class, 'unitpendidikan_id', 'id');
+    }
+    public function sendPasswordResetNotification($token)
+    {
+        $role = $this->role; // Pastikan field 'role' tersedia di tabel user
+        $this->notify(new ResetPasswordNotification($token, $role));
     }
 }

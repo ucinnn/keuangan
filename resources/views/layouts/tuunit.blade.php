@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Keuangan | Yayasan Nurul Huda') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,7 +18,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        @include('layouts.navigation')
+
 
         <!-- Page Heading -->
         @isset($header)
@@ -30,8 +30,14 @@
         @endisset
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
+        <main class='flex flex-col '>
+            <div>
+                <x-navbar-tuunit></x-navbar-tuunit>
+            </div>
+            <div>
+                {{ $slot }}
+            </div>
+
         </main>
     </div>
 </body>

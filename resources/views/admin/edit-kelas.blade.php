@@ -6,6 +6,7 @@
     <div class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-6">Edit Data Kelas</h2>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @if ($errors->any())
     <script>
         Swal.fire({

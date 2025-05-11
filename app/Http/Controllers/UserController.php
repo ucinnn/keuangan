@@ -112,7 +112,7 @@ if (User::where('email', $request->email)->where('id', '!=', $id)->exists()) {
             // Simpan data berdasarkan role
             switch ($validated['peran_user']) {
                 case 'admin':
-                    Admin::create([
+                    $admin = Admin::create([
                         'user_id' => $users->id,
                         'name' => $validated['nama_user'],
                         'email' => $validated['email'],

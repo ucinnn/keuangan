@@ -58,8 +58,8 @@
 
                 <div class="flex items-center space-x-4">
                     <label for="nama_user" class="text-sm font-medium text-gray-700 w-1/4">Nama User</label>
-                    <input type="text" id="$users->users?name" name="name" value="{{ old('name', $users->name) }}"
-                        class="w-3/4 px-4 py-2 border rounded-md">
+                    <input type="text" id="name" name="name" value="{{ old('name', $users->name) }}"
+                        class="w-3/4 px-4 py-2 border rounded-md"required>
                 </div>
 
                 <div class="flex items-center space-x-4">

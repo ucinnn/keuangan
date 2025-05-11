@@ -59,6 +59,16 @@ class KelasController extends Controller
     public function updatee(Request $request, $id)
     {
         $kelas = kelas::findorFail($id);
+        // Cek Tahun Ajaran (tidak boleh sama kecuali milik ID yang sedang diedit)
+if (Kelas::where('nama_kelas', $request->nama_kelas)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['nama_kelas' => 'Data Nama Kelas telah digunakan.'])->withInput();
+}
+
+// Cek Tahun Awal
+if (Kelas::where('keterangan', $request->keterangan)->where('id', '!=', $id)->exists()) {
+    return redirect()->back()->withErrors(['keterangan' => 'Data Nama Keterangan telah digunakan.'])->withInput();
+}
+
         $kelas->update($request->all());
         return redirect()->route('admin.manage-kelas', $id)->with('success', 'Data Kelas berhasil diperbarui');
     }

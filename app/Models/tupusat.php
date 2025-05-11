@@ -21,8 +21,10 @@ class tupusat extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
+    'email',
+    'password',
+    'username',
+    'role', 
     ];
 
     /**

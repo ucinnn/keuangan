@@ -46,17 +46,65 @@ class UserController extends Controller
     public function updateuserr(Request $request, $id)
     {
         $users = User::findorFail($id);
-        // Cek User (tidak boleh sama kecuali milik ID yang sedang diedit)
-if (User::where('username', $request->username)->where('id', '!=', $id)->exists()) {
-    return redirect()->back()->withErrors(['username' => 'Username telah digunakan.'])->withInput();
-}
 
-// Cek Email
-if (User::where('email', $request->email)->where('id', '!=', $id)->exists()) {
-    return redirect()->back()->withErrors(['email' => 'Email telah digunakan.'])->withInput();
-}
+        // Validasi dasar (kamu bisa tambahkan yang lain jika perlu)
+    $request->validate([
+        'nama_user' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'no_telp' => ['required', 'regex:/^[0-9]+$/', 'min:10'],
+        'username' => 'required|string|unique:users,username,' . $id,
+        'peran_user' => 'nullable|string|in:admin,tupusat,tuunit',
+        'namaUnit' => 'nullable|string',
+    ]);
 
-        $users->update($request->all());
+    // Update table users
+    $users->update([
+        'name' => $request->nama_user,
+        'email' => $request->email,
+        'username' => $request->username,
+        'no_telp' => $request->no_telp,
+        'role' => $request->peran_user,
+        'namaUnit' => $request->namaUnit,
+    ]);
+
+    // Update ke tabel sesuai role
+    switch ($request->peran_user) {
+        case 'admin':
+            $admin = Admin::where('id', $id)->first();
+            if ($admin) {
+                $admin->update([
+                    'name' => $request->nama_user,
+                    'email' => $request->email,
+                    'username' => $request->username,
+                    'role' => $request->peran_user,
+                ]);
+            }
+            break;
+
+        case 'tupusat':
+            $tupusat = Tupusat::where('id', $id)->first();
+            if ($tupusat) {
+                $tupusat->update([
+                    'name' => $request->nama_user,
+                    'email' => $request->email,
+                    'username' => $request->username,
+                    'role' => $request->peran_user,
+                ]);
+            }
+            break;
+
+        case 'tuunit':
+            $tuunit = Tuunit::where('id', $id)->first();
+            if ($tuunit) {
+                $tuunit->update([
+                    'name' => $request->nama_user,
+                    'email' => $request->email,
+                    'username' => $request->username,
+                    'role' => $request->peran_user,
+                ]);
+            }
+            break;
+    }
         return redirect()->route('admin.manage-user', $id)->with('success', 'Data User berhasil diperbarui');
     }
 

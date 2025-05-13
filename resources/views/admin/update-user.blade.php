@@ -58,7 +58,7 @@
 
                 <div class="flex items-center space-x-4">
                     <label for="nama_user" class="text-sm font-medium text-gray-700 w-1/4">Nama User</label>
-                    <input type="text" id="name" name="name" value="{{ old('name', $users->name) }}"
+                    <input type="text" id="nama_user" name="nama_user" value="{{ old('name', $users->name) }}"
                         class="w-3/4 px-4 py-2 border rounded-md"required>
                 </div>
 
@@ -87,13 +87,9 @@
 
                 <div class="flex items-center space-x-4">
                     <label for="peran_user" class="text-sm font-medium text-gray-900 w-1/4">Peran User</label>
-                    <span class="w-3/4 px-4 py-2 border rounded-md bg-gray-200 text-gray-500">{{ old('password', $users->role) }}</span>
-                    {{-- <select id="peran_user" name="role" class="w-3/4 px-4 py-2 border rounded-md" required>
-                        <option value="">Pilih Peran</option>
-                        <option value="admin" {{ old('role', $users->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="tupusat" {{ old('role', $users->role) == 'tupusat' ? 'selected' : '' }}>TU Pusat</option>
-                        <option value="tuunit" {{ old('role', $users->role) == 'tuunit' ? 'selected' : '' }}>TU Unit</option>
-                    </select> --}}
+                    <span class="w-3/4 px-4 py-2 border rounded-md bg-gray-200 text-gray-500">{{ old('peran_user', $users->role) }}</span>
+                        <!-- Kirim value tersembunyi agar controller menerima input -->
+                        <input type="hidden" name="peran_user" value="{{ old('peran_user', $users->role) }}">
                 </div>
 
                 <div class="flex items-center space-x-4" id="unitPendidikanContainer" style="display: {{ old('role', $users->role) == 'tuunit' ? 'flex' : 'none' }};">

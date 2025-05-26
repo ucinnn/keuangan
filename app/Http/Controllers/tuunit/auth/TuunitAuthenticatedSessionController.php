@@ -45,3 +45,4 @@ class TuunitAuthenticatedSessionController extends Controller
         return redirect('/tuunit/login');
     }
 }
+?>

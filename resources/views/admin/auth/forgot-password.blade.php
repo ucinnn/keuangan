@@ -1,12 +1,21 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        {{ __('Lupa kata sandi? Tidak masalah. Cukup beri tahu kami alamat email Anda dan kami akan mengirimkan tautan reset kata sandi melalui email yang memungkinkan Anda memilih kata sandi baru.') }}
     </div>
+
+       <div class="flex items-center justify-end mt-4">
+            @if (Route::has('admin.login'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('admin.login') }}">
+                    {{ __('Kembali ke login') }}
+                </a>
+            @endif
+        </div>
 
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('admnin.password.email') }}">
+    <form method="POST" action="{{ route('admin.password.email') }}">
         @csrf
 
         <!-- Email Address -->
@@ -19,7 +28,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button>
-                {{ __('Email Password Reset Link') }}
+                {{ __('Kirim link reset password') }}
             </x-primary-button>
         </div>
     </form>

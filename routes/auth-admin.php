@@ -10,10 +10,11 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\tupusat\Auth\PasswordResetLinkController as AuthPasswordResetLinkController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware('admin')->group(function () {
+Route::prefix('admin')->middleware('guest')->group(function () {
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('admin.password.request');
 
@@ -45,10 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('admin.password.confirm');
 
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-
     Route::put('password', [PasswordController::class, 'update'])->name('admin.password.update');
 
-    Route::post('logout', [AdminAuthenticatedSessionController::class, 'destroy'])
-        ->name('admin.logout');
+    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 });

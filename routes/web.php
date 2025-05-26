@@ -20,6 +20,8 @@ Route::get('/logout')->name('logout');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/auth-admin.php';
+require __DIR__ . '/auth-tupusat.php';
+require __DIR__ . '/auth-tuunit.php';
 require __DIR__ . '/admin-auth.php';
 require __DIR__ . '/tupusat-auth.php';
 require __DIR__ . '/tuunit-auth.php';

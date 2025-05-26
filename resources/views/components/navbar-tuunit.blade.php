@@ -73,7 +73,7 @@
 
         <ul class="space-y-2 font-medium">
             <li>
-                <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                <x-nav-link href="{{ route('tuunit.dashboard') }}" :active="request()->routeIs('tuunit.dashboard')">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                         <path
@@ -87,7 +87,7 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link href="{{ route('admin.manage-user') }}" :active="request()->routeIs('admin.manage-user')">
+                <x-nav-link href="{{ route('tuunit.manage-user') }}" :active="request()->routeIs('tuunit.manage-user')">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                         <path
@@ -99,7 +99,7 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link href="{{ route('admin.manage-data-siswa') }}" :active="request()->routeIs('admin.manage-data-siswa')">
+                <x-nav-link href="{{ route('tuunit.manage-data-siswa') }}" :active="request()->routeIs('tuunit.manage-data-siswa')">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                         <path
@@ -111,7 +111,7 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link href="{{ route('admin.manage-jenis-pembayaran') }}" :active="request()->routeIs('admin.manage-jenis-pembayaran')">
+                <x-nav-link href="{{ route('tuunit.manage-jenis-pembayaran') }}" :active="request()->routeIs('tuunit.manage-jenis-pembayaran')">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                         <path
@@ -123,9 +123,9 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link aria-controls="dropdown-example" data-collapse-toggle="dropdown-example" :active="request()->routeIs('admin.manage-kelas') ||
-                    request()->routeIs('admin.create-kelas') ||
-                    request()->routeIs('admin.perpindahan-kelas')"
+                <x-nav-link aria-controls="dropdown-example" data-collapse-toggle="dropdown-example" :active="request()->routeIs('tuunit.manage-kelas') ||
+                    request()->routeIs('tuunit.create-kelas') ||
+                    request()->routeIs('tuunit.perpindahan-kelas')"
                     @click="toggleDropdown()">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
@@ -140,23 +140,23 @@
                     </svg>
                 </x-nav-link>
                 <ul id="dropdown-example"
-                    class="py-2 space-y-2 {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.create-kelas') || request()->routeIs('admin.update-kelas') || request()->routeIs('admin.perpindahan-kelas') ? '' : 'hidden' }}">
+                    class="py-2 space-y-2 {{ request()->routeIs('tuunit.manage-kelas') || request()->routeIs('tuunit.create-kelas') || request()->routeIs('tuunit.update-kelas') || request()->routeIs('tuunit.perpindahan-kelas') ? '' : 'hidden' }}">
                     <li>
-                        <a href="{{ route('admin.manage-kelas') }}"
+                        <a href="{{ route('tuunit.manage-kelas') }}"
                             class="flex items-center w-full p-2 text-green-900 transition duration-75 rounded-lg pl-11 group hover:bg-green-100 dark:text-white dark:hover:bg-green-700
-                            {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.create-kelas') || request()->routeIs('admin.update-kelas') ? 'bg-green-900' : '' }}">CRU
+                            {{ request()->routeIs('tuunit.manage-kelas') || request()->routeIs('tuunit.create-kelas') || request()->routeIs('tuunit.update-kelas') ? 'bg-green-900' : '' }}">CRU
                             Kelas</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.perpindahan-kelas') }}"
+                        <a href="{{ route('tuunit.perpindahan-kelas') }}"
                             class="flex items-center w-full p-2 text-green-900 transition duration-75 rounded-lg pl-11 group hover:bg-green-100 dark:text-white dark:hover:bg-green-700
-                            {{ request()->routeIs('admin.perpindahan-kelas') ? 'bg-green-900' : '' }}">Perpindahan
+                            {{ request()->routeIs('tuunit.perpindahan-kelas') ? 'bg-green-900' : '' }}">Perpindahan
                             Kelas</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <x-nav-link href="{{ route('admin.manage-tahun-ajaran') }}" :active="request()->routeIs('admin.manage-tahun-ajaran')">
+                <x-nav-link href="{{ route('tuunit.manage-tahun-ajaran') }}" :active="request()->routeIs('tuunit.manage-tahun-ajaran')">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                         <path
@@ -168,7 +168,7 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link href="{{ route('admin.manage-unit-pendidikan') }}" :active="request()->routeIs('admin.manage-unit-pendidikan')">
+                <x-nav-link href="{{ route('tuunit.manage-unit-pendidikan') }}" :active="request()->routeIs('tuunit.manage-unit-pendidikan')">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                         <path
@@ -180,9 +180,9 @@
                 </x-nav-link>
             </li>
             <li>
-                <form method="POST" action="{{ route('admin.logout') }}">
+                <form method="POST" action="{{ route('tuunit.logout') }}">
                     @csrf
-                    <a href="{{ route('admin.logout') }}"
+                    <a href="{{ route('tuunit.logout') }}"
                         onclick="event.preventDefault(); this.closest('form').submit();">
                         <x-danger-button class="ms-9">
                             <span class ="flex-1 ms-33 whitespace-nowrap">Logout</span>

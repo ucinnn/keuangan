@@ -21,4 +21,10 @@ class UnitPendidikan extends Model
     {
         return $this->hasMany(Siswa::class);
     }
+
+        // Define relationship with TransaksiKas
+        public function transaksiKas()
+        {
+            return $this->hasMany(TransaksiKas::class);
+        }
 }

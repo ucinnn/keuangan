@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\tuunit\Auth;
+namespace App\Http\Controllers\tuunit\auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\TuUnitRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class LoginController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(TuUnitRequest $request): RedirectResponse
     {
         $request->authenticate();
 

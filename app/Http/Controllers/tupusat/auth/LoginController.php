@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\tupusat\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\TuPusatRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,13 +22,13 @@ class LoginController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(TuPusatRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('tupusat.dashboard', absolute: false));
+        return redirect()->intended(route('tupusat.dashboard.index', absolute: false));
     }
 
     /**

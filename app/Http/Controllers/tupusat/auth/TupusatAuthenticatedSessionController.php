@@ -28,7 +28,7 @@ class TupusatAuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('tupusat.dashboard', absolute: false));
+        return redirect()->intended(route('tupusat.dashboard.indexs', absolute: false));
     }
 
     /**

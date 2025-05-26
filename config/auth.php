@@ -42,7 +42,7 @@ return [
         ],
         'admin' => [
             'driver' => 'session',
-            'provider' => 'admin',
+            'provider' => 'admin', // <-- sudah cocok
         ],
         'tupusat' => [
             'driver' => 'session',
@@ -53,6 +53,7 @@ return [
             'provider' => 'tuunit',
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -79,17 +80,17 @@ return [
 
         'admin' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\admin::class),
+            'model' => env('AUTH_MODEL', App\Models\Admin::class),
         ],
 
         'tupusat' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\tupusat::class),
+            'model' => env('AUTH_MODEL', App\Models\Tupusat::class),
         ],
 
         'tuunit' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\tuunit::class),
+            'model' => env('AUTH_MODEL', App\Models\Tuunit::class),
         ],
 
         // 'users' => [
@@ -125,6 +126,34 @@ return [
             'throttle' => 60,
         ],
     ],
+
+    'passwords' => [
+        'users' => [
+            'provider' => 'users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [ // tambahkan ini
+            'provider' => 'admin', // cocokkan dengan provider `admin` di atas
+            'table' => 'password_reset_tokens', // atau tabel Anda
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'tupusats' => [ // tambahkan ini
+            'provider' => 'tupusat', // cocokkan dengan provider `admin` di atas
+            'table' => 'password_reset_tokens', // atau tabel Anda
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'tuunits' => [ // tambahkan ini
+            'provider' => 'tuunit', // cocokkan dengan provider `admin` di atas
+            'table' => 'password_reset_tokens', // atau tabel Anda
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+    ],
+
 
     /*
     |--------------------------------------------------------------------------

@@ -12,7 +12,7 @@
             });
         });
     });
-    
+
 </script>
 <style>
     .navbar-sticky-side {
@@ -42,22 +42,6 @@
                 <li>
                     <div class="ml-4 hidden-on-minimized flex items-center">
                     <span class="text-gray-100 dark:text-white">{{ Auth::guard('admin')->user()->username }}</span>
-                    <x-dropdown align="right" width="40">
-                            <x-slot name="trigger">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/1000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <x-dropdown-link :href="route('admin.profile.edit')">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
                     </div>
                 </li>
                 <li>
@@ -131,12 +115,12 @@
 
     <ul id="dropdown-kelas"
         class="py-2 space-y-2 {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.create-kelas') || request()->routeIs('admin.update-kelas') || request()->routeIs('admin.perpindahan-kelas') ? '' : 'hidden' }}">
-        
+
         <!-- Submenu CRU Kelas -->
         <li>
             <a href="{{ route('admin.manage-kelas') }}"
                 class="flex items-center w-full p-2 text-green-100 transition duration-75 rounded-lg pl-11 group hover:bg-green-800 dark:text-white dark:hover:bg-green-700
-                {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.create-kelas') || request()->routeIs('admin.update-kelas') ? 'bg-green-800' : '' }}">
+                {{ request()->routeIs('admin.manage-kelas') || request()->routeIs('admin.create-kelas') || request()->routeIs('admin.update-kelas') ? 'bg-green-700' : '' }}">
                 <!-- Ikon CRU -->
                 <svg class="w-4 h-4 me-2 text-white dark:text-white" xmlns="http://www.w3.org/1000/svg"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -152,7 +136,7 @@
         <li>
             <a href="{{ route('admin.perpindahan-kelas') }}"
                 class="flex items-center w-full p-2 text-green-100 transition duration-75 rounded-lg pl-11 group hover:bg-green-500 dark:text-white dark:hover:bg-green-700
-                {{ request()->routeIs('admin.perpindahan-kelas') ? 'bg-green-800' : '' }}">
+                {{ request()->routeIs('admin.perpindahan-kelas') ? 'bg-green-700' : '' }}">
                 <!-- Ikon Perpindahan -->
                 <svg class="w-4 h-4 me-2 text-white dark:text-white" xmlns="http://www.w3.org/1000/svg"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,7 +152,7 @@
             <li>
     <x-nav-link href="{{ route('admin.manage-data-siswa') }}" :active="request()->routeIs('admin.manage-data-siswa')">
         <!-- Ikon Siswa / Pendidikan -->
-        <svg class="flex-shrink-0 w-5 h-5 text-gray-100 transition duration-75 dark:text-gray-400 group-hover:text-gray-100 dark:group-hover:text-white" 
+        <svg class="flex-shrink-0 w-5 h-5 text-gray-100 transition duration-75 dark:text-gray-400 group-hover:text-gray-100 dark:group-hover:text-white"
             xmlns="http://www.w3.org/1000/svg" viewBox="0 0 640 512" fill="currentColor" aria-hidden="true">
             <path d="M622.3 271.1L416 176.5V133c0-7.1-3.8-13.6-10-17.2L336 66.5V32c0-8.8-7.2-16-16-16H48C39.2 16 32 23.2 32 32v400c0 8.8 7.2 16 16 16h272c8.8 0 16-7.2 16-16V233.1l70.2 33.1c-16.2 24.6-25.4 53.6-25.4 84.8 0 88.4 71.6 160 160 160s160-71.6 160-160c0-30.1-8.3-58.3-22.5-82.9z"/>
         </svg>
@@ -216,7 +200,7 @@
 
 
 
-            
+
 
 
 

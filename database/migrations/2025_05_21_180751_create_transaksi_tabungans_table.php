@@ -18,7 +18,8 @@ return new class extends Migration
             $table->decimal('jumlah', 15, 2);
             $table->string('keterangan')->nullable();
             $table->date('tanggal');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // User yang input
+            $table->string('username');
+            $table->foreign('username')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -25,6 +25,7 @@
             </div>
 
             <div class="flex justify-end mb-4 space-x-2">
+                <a href="{{ url( route('tupusat.tabungan.index')) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Kembali</a>
                 <a href="{{ route('tupusat.transaksi.create', $tabungan->id) }}"
                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-200">
                     Tambah Transaksi
@@ -71,6 +72,7 @@
                             <th class="py-3 px-4 border-b">Jenis</th>
                             <th class="py-3 px-4 border-b">Jumlah</th>
                             <th class="py-3 px-4 border-b">Keterangan</th>
+                            <th class="py-3 px-4 border-b">Petugas</th>
                             <th class="py-3 px-4 border-b">Aksi</th>
                         </tr>
                     </thead>
@@ -83,6 +85,7 @@
                                     Rp {{ number_format($trx->jumlah, 0, ',', '.') }}
                                 </td>
                                 <td class="py-2 px-4 border-b">{{ $trx->keterangan }}</td>
+                                <td class="py-2 px-4 border-b">{{ $trx->user->username }}</td>
                                 <td class="py-2 px-4 border-b text-center whitespace-nowrap">
                                     <a href="{{ route('tupusat.transaksi.edit', $trx->id) }}"
                                        class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 text-xs rounded mr-1">

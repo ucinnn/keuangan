@@ -47,13 +47,21 @@
                               rows="3"></textarea>
                 </div>
 
-                <!-- Tombol Simpan -->
-                <div class="flex justify-end">
-                    <button type="submit"
-                            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200">
-                        Simpan Transaksi
-                    </button>
-                </div>
+                <input type="hidden" name="username" value="{{ Auth::user()->username }}">
+
+
+              <!-- Tombol Simpan & Batal -->
+        <div class="flex justify-between">
+            <a href="{{ route('tupusat.tabungan.index', $tabungan->id) }}"
+            class="bg-red-300 hover:bg-red-400 text-red-800 font-semibold py-2 px-4 rounded-md transition duration-200">
+                Batal
+            </a>
+            <button type="submit"
+                    class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200">
+                Simpan Transaksi
+            </button>
+        </div>
+
             </form>
         </div>
     </div>

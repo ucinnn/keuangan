@@ -103,8 +103,8 @@
 
 <li>
     <x-nav-link aria-controls="dropdown-kelas" data-collapse-toggle="dropdown-kelas"
-        :active="request()->routeIs('tupusat.tagihan-siswa.index') ||
-                 request()->routeIs('tupusat.kas.index')"
+        :active="request()->routeIs('tupusat.tagihan-siswa.index') || request()->routeIs('tupusat.tagihan.show') || 
+                 request()->routeIs('tupusat.kas.index') ||  request()->routeIs('tupusat.kas.create') ||  request()->routeIs('tupusat.kas.edit')"
         @click="toggleDropdown()">
         <!-- Ikon utama menu Manage Kelas -->
         <svg class="flex-shrink-0 w-5 h-5 text-gray-100 transition duration-75 dark:text-gray-400 group-hover:text-gray-100 dark:group-hover:text-white"
@@ -120,13 +120,13 @@
     </x-nav-link>
 
     <ul id="dropdown-kelas"
-    class="py-2 space-y-2 {{ request()->routeIs('tupusat.tagihan-siswa.index') || request()->routeIs('tupusat.kas.index') ? '' : 'hidden' }}">
+    class="py-2 space-y-2 {{ request()->routeIs('tupusat.tagihan-siswa.index') ||  request()->routeIs('tupusat.tagihan.show') || request()->routeIs('tupusat.kas.index') ? '' : 'hidden' }}">
 
         <!-- Submenu CRU Kelas -->
         <li>
         <a href="{{ route('tupusat.tagihan-siswa.index') }}"
         class="flex items-center w-full p-2 text-green-100 transition duration-75 rounded-lg pl-11 group hover:bg-green-800 dark:text-white dark:hover:bg-green-700
-                {{ request()->routeIs('tupusat.tagihan-siswa.index') ? 'bg-green-700' : '' }}">
+                {{ request()->routeIs('tupusat.tagihan-siswa.index') || request()->routeIs('tupusat.tagihan.show') ? 'bg-green-700' : '' }}">
                 <!-- Ikon CRU -->
                 <svg class="w-4 h-4 me-2 text-white dark:text-white" xmlns="http://www.w3.org/1000/svg"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -142,7 +142,7 @@
         <li>
         <a href="{{ route('tupusat.kas.index') }}"
         class="flex items-center w-full p-2 text-green-100 transition duration-75 rounded-lg pl-11 group hover:bg-green-500 dark:text-white dark:hover:bg-green-700
-                {{ request()->routeIs(('tupusat.kas.index')) ? 'bg-green-700' : '' }}">
+                {{ request()->routeIs(('tupusat.kas.index')) || request()->routeIs(('tupusat.kas.create')) || request()->routeIs(('tupusat.kas.edit')) ? 'bg-green-700' : '' }}">
                 <!-- Ikon Perpindahan -->
                 <svg class="w-4 h-4 me-2 text-white dark:text-white" xmlns="http://www.w3.org/1000/svg"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -157,7 +157,7 @@
 </li>
 
             <li>
-    <x-nav-link href="{{ route('tupusat.tabungan.index') }}" :active="request()->routeIs('tupusat.tabungan.index')">
+    <x-nav-link href="{{ route('tupusat.tabungan.index') }}" :active="request()->routeIs('tupusat.tabungan.index') || request()->routeIs('tupusat.transaksi.create') || request()->routeIs('tupusat.tabungan.create') || request()->routeIs('tupusat.tabungan.create') || request()->routeIs('tabungan.show')">
         <!-- Ikon gedung/sekolah -->
         <svg class="flex-shrink-0 w-5 h-5 text-gray-100 transition duration-75 dark:text-gray-400 group-hover:text-gray-100 dark:group-hover:text-white"
             xmlns="http://www.w3.org/1000/svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

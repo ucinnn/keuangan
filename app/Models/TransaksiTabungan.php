@@ -15,7 +15,7 @@ class TransaksiTabungan extends Model
         'jumlah',
         'keterangan',
         'tanggal',
-        'user_id',
+        'username',
     ];
 
     public function tabungan()
@@ -25,6 +25,6 @@ class TransaksiTabungan extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'username', 'username');
     }
 }

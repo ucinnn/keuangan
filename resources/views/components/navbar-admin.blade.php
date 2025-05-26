@@ -42,6 +42,7 @@
                 <li>
                     <div class="ml-4 hidden-on-minimized flex items-center">
                     <span class="text-gray-100 dark:text-white">{{ Auth::guard('admin')->user()->username }}</span>
+
                     </div>
                 </li>
                 <li>

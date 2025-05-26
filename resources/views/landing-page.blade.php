@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/logo-yysn.png') }}">
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -40,7 +42,7 @@
             </div>
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-semibold mb-2">TU PUSAT</h3>
-                <a href="{{ route('tupusat.dashboard') }}">
+                <a href="{{ route('tupusat.login') }}">
                     <x-primary-button class="ms-3">
                         {{ __('Log in') }}
                     </x-primary-button>

@@ -29,7 +29,7 @@
                     </div>
                     <div class="flex-1 p-4 m-2 mb-6 bg-white rounded-lg shadow-md text-center ]">
                         <p class="text-sm text-gray-500">Jumlah Total Siswa</p>
-                        <p class="text-2xl font-semibold">$11.675 M</p>
+                        <p class="text-2xl font-semibold">{{ $siswa }}</p>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col w-1/2 h-full justify-between ">
+                {{-- <div class="flex flex-col w-1/2 h-full justify-between ">
                     <div class="flex-1 p-4">
                     </div>
                     <!-- Contextual Pie Chart -->
@@ -53,15 +53,10 @@
                         <p class="text-lg font-semibold mb-4">Data Siswa By Unit</p>
                         <canvas id="resonanceChart"></canvas>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
-
-
-
-
-
 
     </div>
 
@@ -91,7 +86,7 @@
             labels: ['TK','SD','SMP','SMA','TPQ','PONDOK','MADIN'],
             datasets: [{
                 label: 'Impressions',
-                data: [dataUnit.TK, dataUnit.SD, dataUnit.SMP, dataUnit.SMA, dataUnit.MADIN, dataUnit.TPQ, dataUnit.PONDOK],
+                data: [dataUnit.TK, dataUnit.SD, dataUnit.SMP, dataUnit.SMA, dataUnit.MADIN, dataUnit.TPQ, dataUnit.YA PONDOK],
                 borderColor: '#818cf8',
                 backgroundColor: 'rgba(129, 140, 248, 0.2)',
                 fill: true,
@@ -100,29 +95,17 @@
         }
     });
 
-    // Spend Chart (Bar)
-    const ctxSpend = document.getElementById('spendChart');
-    new Chart(ctxSpend, {
-        type: 'bar',
-        data: {
-            labels: ['Meta', 'Google', 'YouTube', 'Amazon', 'Xandr'],
-            datasets: [{
-                label: 'Spend ($)',
-                data: [8000, 9000, 12000, 11000, 7000],
-                backgroundColor: '#f472b6'
-            }]
-        }
-    });
+    let dataSiswa= @json($listOfAllSiswa);
 
     // Resonance Chart (Polar Area)
     const ctxResonance = document.getElementById('resonanceChart');
     new Chart(ctxResonance, {
         type: 'polarArea',
         data: {
-            labels: ['Creative A', 'Creative B', 'Creative C', 'Creative D'],
+            labels: ['TK','SD','SMP','SMA','TPQ','PONDOK','MADIN'],
             datasets: [{
-                data: [79, 82, 54, 67],
-                backgroundColor: ['#f472b6', '#818cf8', '#34d399', '#fbbf24']
+                data: [dataSiswa.2, dataSiswa.3, dataSiswa.4, dataSiswa.5, dataSiswa.6, dataSiswa.7, dataSiswa.8],
+                backgroundColor: ['#f472b6', '#818cf8', '#34d399', '#fbbf24', '#818cf8','#818cf8','#818cf8',]
             }]
         }
     });

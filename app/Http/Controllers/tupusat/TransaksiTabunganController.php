@@ -40,40 +40,39 @@ class TransaksiTabunganController extends Controller
             'jumlah' => $request->jumlah,
             'tanggal' => $request->tanggal,
             'keterangan' => $request->keterangan,
-            'user_id' => null //Auth::id() kalo udah login bisa, kita ubah ini
+            'username' => $request->username, // <- Pastikan ini disimpan
         ]);
 
         return redirect()->route('tabungan.show', $tabungan->id)->with('success', 'Transaksi berhasil ditambahkan.');
     }
 
     public function edit($id)
-{
-    $transaksi = TransaksiTabungan::with('tabungan.siswa')->findOrFail($id);
-    return view('tupusat.transaksi.edit', compact('transaksi'));
-}
+    {
+        $transaksi = TransaksiTabungan::with('tabungan.siswa')->findOrFail($id);
+        return view('tupusat.transaksi.edit', compact('transaksi'));
+    }
 
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'jenis_transaksi' => 'required|in:Setoran,Penarikan',
-        'jumlah' => 'required|numeric|min:100',
-        'tanggal' => 'required|date',
-        'keterangan' => 'nullable|string'
-    ]);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'jenis_transaksi' => 'required|in:Setoran,Penarikan',
+            'jumlah' => 'required|numeric|min:100',
+            'tanggal' => 'required|date',
+            'keterangan' => 'nullable|string'
+        ]);
 
-    $transaksi = TransaksiTabungan::findOrFail($id);
-    $transaksi->update($request->all());
+        $transaksi = TransaksiTabungan::findOrFail($id);
+        $transaksi->update($request->all());
 
-    return redirect()->route('tabungan.show', $transaksi->tabungan_id)->with('success', 'Transaksi berhasil diperbarui.');
-}
+        return redirect()->route('tabungan.show', $transaksi->tabungan_id)->with('success', 'Transaksi berhasil diperbarui.');
+    }
 
-public function destroy($id)
-{
-    $transaksi = TransaksiTabungan::findOrFail($id);
-    $tabunganId = $transaksi->tabungan_id;
-    $transaksi->delete();
+    public function destroy($id)
+    {
+        $transaksi = TransaksiTabungan::findOrFail($id);
+        $tabunganId = $transaksi->tabungan_id;
+        $transaksi->delete();
 
-    return redirect()->route('tabungan.show', $tabunganId)->with('success', 'Transaksi berhasil dihapus.');
-}
-
+        return redirect()->route('tabungan.show', $tabunganId)->with('success', 'Transaksi berhasil dihapus.');
+    }
 }

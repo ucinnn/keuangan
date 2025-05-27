@@ -86,6 +86,7 @@
                                 <th class="py-2 px-4 border-r">Kelas</th>
                                 <th class="py-2 px-4 border-r">Saldo Awal</th>
                                 <th class="py-2 px-4 border-r">Saldo Akhir</th>
+                                <th class="py-2 px-4 border-r">Created By</th>
                                 @if(request()->get('trashed'))
                                 <th class="py-2 px-4 border-r">Deleted By</th>
                                 @endif
@@ -102,8 +103,9 @@
                                     <td class="py-2 px-4 border-r">{{ $tabungan->siswa->kelas->nama_kelas ?? '-' }}</td>
                                     <td class="py-2 px-4 border-r">Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}</td>
                                     <td class="py-2 px-4 border-r">Rp {{ number_format($tabungan->saldo_akhir, 0, ',', '.') }}</td>
+                                    <td class="py-2 px-4 border-b">{{ $tabungan->created_by }}</td>
                                     @if(request()->get('trashed'))
-                                    <td class="py-2 px-4 border-b">{{ $tabungan->user->username }}</td>
+                                    <td class="py-2 px-4 border-b">{{ $tabungan->deleted_by }}</td>
                                     @endif
                                     <td class="py-2 px-4 border-r">
                                         @php

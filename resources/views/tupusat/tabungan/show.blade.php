@@ -80,7 +80,7 @@
                  <tbody>
                     {{-- Baris saldo awal --}}
                     <tr class="bg-gray-50 text-center">
-                        <td class="py-2 px-4 border-b">{{ $tabungan->created_at->translatedFormat('d F Y h:i') }}</td>
+                        <td class="py-2 px-4 border-b">{{ $tabungan->created_at->translatedFormat('d F Y h:i A') }}</td>
                         <td class="py-2 px-4 border-b font-semibold">Setoran Awal</td>
                         <td class="py-2 px-4 border-b text-green-700">
                             Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}
@@ -88,14 +88,14 @@
                           <td class="py-2 px-4 border-b text-blue-700">
                             Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}
                         </td>
-                        <td class="py-2 px-4 border-b">{{ $tabungan->user->username }}</td>
+                        <td class="py-2 px-4 border-b">{{ $tabungan->created_by }}</td>
                         <td class="py-2 px-4 border-b"></td>
                     </tr>
 
                     {{-- Riwayat transaksi --}}
                     @forelse ($transaksi as $trx)
                         <tr class="hover:bg-gray-50 text-center">
-                            <td class="py-2 px-4 border-b">{{ $trx->created_at->translatedFormat('d F Y h:i') }}</td>
+                            <td class="py-2 px-4 border-b">{{ $trx->created_at->translatedFormat('d F Y h:i A') }}</td>
                             <td class="py-2 px-4 border-b">{{ $trx->jenis_transaksi }}</td>
                             <td class="py-2 px-4 border-b {{ $trx->jenis_transaksi == 'Penarikan' ? 'text-red-600' : 'text-green-700' }}">
                                 Rp {{ number_format($trx->jumlah, 0, ',', '.') }}
@@ -103,7 +103,7 @@
                                <td class="py-2 px-4 border-b text-blue-700">
                                 Rp {{ number_format($trx->saldo_berjalan, 0, ',', '.') }}
                             </td>
-                            <td class="py-2 px-4 border-b">{{ $trx->user->username }}</td>
+                            <td class="py-2 px-4 border-b">{{ $trx->petugas }}</td>
                             <td class="py-2 px-4 border-b">{{ $trx->keterangan }}</td>
                             <td colspan="2" class="py-2 px-4 border-b text-center whitespace-nowrap">
                                 <a href="{{ route('tupusat.transaksi.edit', $trx->id) }}"

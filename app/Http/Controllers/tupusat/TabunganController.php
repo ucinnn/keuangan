@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\tupusat;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Siswa;
 use App\Models\Tabungan;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -132,7 +133,7 @@ class TabunganController extends Controller
             'siswa_id' => $request->siswa_id,
             'saldo_awal' => $request->saldo_awal,
             'status' => 'Aktif',
-            'username' => $request->username,
+            'created_by' => $request->created_by,
         ]);
 
         return redirect()->route('tupusat.tabungan.index')->with('success', 'Tabungan berhasil dibuat.');
@@ -155,6 +156,7 @@ class TabunganController extends Controller
     {
         $tabungan = Tabungan::findOrFail($id);
 
+        $tabungan->deleted_by = Auth::user()->username; // Atau ->name / ->email tergantung kolom di User
         $tabungan->status = 'Non Aktif';
         $tabungan->save();
 

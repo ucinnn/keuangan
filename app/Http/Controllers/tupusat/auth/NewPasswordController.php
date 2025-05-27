@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\tupusat\Auth;
+namespace App\Http\Controllers\tupusat\auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
@@ -38,7 +38,7 @@ class NewPasswordController extends Controller
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
-        $status = Password::reset(
+        $status = Password::broker('tupusats')->reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
@@ -49,6 +49,7 @@ class NewPasswordController extends Controller
                 event(new PasswordReset($user));
             }
         );
+
 
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can

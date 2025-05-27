@@ -15,7 +15,8 @@ class Tabungan extends Model
         'saldo_awal',
         'saldo_akhir',  // Jika kamu ingin menghitung saldo akhir secara otomatis
         'status',
-        'username',
+        'created_by',
+        'deleted_by',
     ];
 
     // Relasi ke siswa

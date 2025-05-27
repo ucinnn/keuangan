@@ -18,12 +18,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100">
-    <header class="bg-green-900 text-white p-6">
-        <h1 class="text-3xl font-bold">
-            <center>Selamat Datang di Sistem Keuangan Yayasan Nurul Huda</center>
-        </h1>
-    </header>
+<header class="bg-green-900 text-white p-6 text-center">
+    <img src="{{ asset('images/logo-yysn.png') }}" alt="Logo Yayasan" class="mx-auto w-20 h-20 object-contain mb-2">
+    <h1 class="text-3xl font-bold">
+        Selamat Datang di Sistem Keuangan Yayasan Nurul Huda
+    </h1>
+</header>
+
+
     <main class="p-6">
         <section class="bg-white rounded-lg shadow-md p-6">
             <h2 class="text-2xl font-semibold mb-4">

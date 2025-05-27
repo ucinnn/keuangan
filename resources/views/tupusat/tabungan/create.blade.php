@@ -50,7 +50,7 @@
                     </p>
             </div>
 
-                    <input type="hidden" name="username" value="{{ Auth::user()->username }}">
+                    <input type="hidden" name="created_by" value="{{ Auth::user()->username }}">
 
                     <!-- Tombol -->
                     <div class="flex justify-end space-x-4 pt-4">

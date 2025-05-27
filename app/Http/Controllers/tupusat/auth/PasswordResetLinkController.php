@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\tupusat\Auth;
+namespace App\Http\Controllers\tupusat\auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;

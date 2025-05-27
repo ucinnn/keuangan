@@ -85,7 +85,6 @@
                                     <th class="py-2 px-4 border-r border-gray-300">Email</th>
                                     <th class="py-2 px-4 border-r border-gray-300">No. Telp</th>
                                     <th class="py-2 px-4 border-r border-gray-300">Username</th>
-                                    <th class="py-2 px-4 border-r border-gray-300">Password</th>
                                     <th class="py-2 px-4 border-r border-gray-300">Peran</th> <!-- Lebar lebih kecil -->
                                     <th class="py-2 px-4 border-r border-gray-300">Unit</th> <!-- Lebar lebih kecil -->
                                     <th colspan="2" class="py-2 px-4 border-r border-gray-300">Aksi</th>
@@ -98,20 +97,6 @@
                                         <td class="py-2 px-4 border-r text-xs border-gray-300">{{ $item->email }}</td>
                                         <td class="py-2 px-4 border-r text-xs border-gray-300">{{ $item->no_telp }}</td>
                                         <td class="py-2 px-4 border-r text-xs border-gray-300">{{ $item->username }}</td>
-                                        <td class="py-2 px-4 border-r text-xs border-gray-300">
-                                            <div class="flex items-center space-x-2">
-                                                <input type="password"
-                                                    id="password-{{ $item->id }}"
-                                                    value="{{ $item->password }}"
-                                                    class="password-input w-full px-2 py-1 border border-gray-300 rounded bg-gray-50 text-gray-700 truncate"
-                                                    readonly>
-                                                <button type="button"
-                                                        onclick="togglePassword({{ $item->id }})"
-                                                        class="p-1 focus:outline-none">
-                                                    <i class="fas fa-eye text-black" id="eye-icon-{{ $item->id }}"></i>
-                                                </button>
-                                            </div>
-                                        </td>
                                         <td class="py-2 px-4 border-r text-xs border-gray-300">{{ $item->role }}</td>
                                         <td class="py-2 px-4 border-r text-xs border-gray-300">{{ $item->namaUnit }}</td>
                                         <td class="py-2 px-4 border-r text-xs border-gray-300">

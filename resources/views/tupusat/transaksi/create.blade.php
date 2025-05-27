@@ -46,7 +46,7 @@
                               rows="3"></textarea>
                 </div>
 
-                <input type="hidden" name="username" value="{{ Auth::user()->username }}">
+                <input type="hidden" name="petugas" value="{{ Auth::user()->username }}">
 
 
               <!-- Tombol Simpan & Batal -->

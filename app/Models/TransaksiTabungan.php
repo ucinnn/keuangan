@@ -15,7 +15,7 @@ class TransaksiTabungan extends Model
         'jumlah',
         'keterangan',
         'created_at',
-        'username',
+        'petugas',
         'saldo_berjalan',
     ];
 

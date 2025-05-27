@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\tupusat;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Tabungan;
 use App\Models\TransaksiTabungan;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class TransaksiTabunganController extends Controller
             'jenis_transaksi' => $request->jenis_transaksi,
             'jumlah' => $request->jumlah,
             'keterangan' => $request->keterangan,
-            'username' => $request->username, // <- Pastikan ini disimpan
+            'petugas' => $request->petugas, // <- Pastikan ini disimpan
         ]);
 
         return redirect()->route('tabungan.show', $tabungan->id)->with('success', 'Transaksi berhasil ditambahkan.');
@@ -67,6 +68,7 @@ class TransaksiTabunganController extends Controller
     public function destroy($id)
     {
         $transaksi = TransaksiTabungan::findOrFail($id);
+        $transaksi->deleted_by = Auth::user()->username; // Atau ->name / ->email tergantung kolom di User
         $tabunganId = $transaksi->tabungan_id;
         $transaksi->delete();
 

@@ -68,18 +68,20 @@
                 <th>Jenis</th>
                 <th>Jumlah</th>
                 <th>Saldo</th>
+                <th>Petugas</th>
                 <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($tabungan->transaksi as $trx)
                 <tr>
-                    <td>{{ $trx->created_at->translatedFormat('d F Y h:i:s') }}</td>
+                    <td>{{ $trx->created_at->translatedFormat('d F Y h:i A') }}</td>
                     <td>{{ $trx->jenis_transaksi }}</td>
                     <td class="py-2 px-4 border-b {{ $trx->jenis_transaksi == 'Penarikan' ? 'text-red-600' : 'text-green-700' }}">
                         Rp {{ number_format($trx->jumlah, 0, ',', '.') }}
                     </td>                    
                     <td>Rp {{ number_format($trx->saldo_berjalan, 0, ',', '.') }}</td>
+                    <td>{{ $trx->petugas }}</td>
                     <td>{{ $trx->keterangan }}</td>
                 </tr>
             @endforeach

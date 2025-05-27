@@ -13,56 +13,62 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Jumlah siswa aktif di seluruh unit pendidikan
         $siswaAktif = Siswa::where('status', 'Aktif')->count();
-        
-        // Total saldo awal tabungan di seluruh unit pendidikan
+
         $totalSaldoAwal = Tabungan::where('status', 'Aktif')->sum('saldo_awal');
-        
-        // Total saldo akhir tabungan (hitung saldo akhir untuk setiap tabungan)
+
         $totalSaldoAkhir = Tabungan::where('status', 'Aktif')->get()->sum(function ($tabungan) {
-            return $tabungan->saldo_akhir;  // Mengambil saldo akhir per tabungan
+            return $tabungan->saldo_akhir;
         });
-        
-        // Jumlah unit pendidikan yang aktif
+
         $totalUnit = UnitPendidikan::where('status', 'Aktif')->count();
-        
-        // Jumlah siswa aktif per unit pendidikan
+
         $siswaPerUnit = Siswa::select('unitpendidikan_id', \DB::raw('count(*) as total_siswa'))
             ->where('status', 'Aktif')
             ->groupBy('unitpendidikan_id')
             ->get();
-    
-        // Data untuk grafik setoran vs penarikan per bulan
-        $setoranData = TransaksiTabungan::where('jenis_transaksi', 'Setoran')
-            ->selectRaw('MONTH(tanggal) as month, SUM(jumlah) as total')
-            ->groupBy(\DB::raw('MONTH(tanggal)'))
+
+        // Ambil setoran per bulan dari transaksi
+        $setoranTransaksi = TransaksiTabungan::where('jenis_transaksi', 'Setoran')
+            ->selectRaw('MONTH(created_at) as month, SUM(jumlah) as total')
+            ->groupBy(\DB::raw('MONTH(created_at)'))
             ->pluck('total', 'month');
-            
-        $penarikanData = TransaksiTabungan::where('jenis_transaksi', 'Penarikan')
-            ->selectRaw('MONTH(tanggal) as month, SUM(jumlah) as total')
-            ->groupBy(\DB::raw('MONTH(tanggal)'))
+
+        // Ambil saldo_awal tabungan dan kelompokkan berdasarkan bulan
+        $setoranAwal = Tabungan::selectRaw('MONTH(created_at) as month, SUM(saldo_awal) as total')
+            ->groupBy(\DB::raw('MONTH(created_at)'))
             ->pluck('total', 'month');
-    
-        // Format data untuk chart (misal, bulan 1-12)
-        $labels = range(1, 12);
-        $setoranDataFormatted = [];
-        $penarikanDataFormatted = [];
-    
-        foreach ($labels as $month) {
-            $setoranDataFormatted[] = $setoranData->get($month, 0);
-            $penarikanDataFormatted[] = $penarikanData->get($month, 0);
+
+        // Gabungkan keduanya: setoran transaksi + saldo awal
+        $setoranGabungan = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $transaksi = $setoranTransaksi->get($i, 0);
+            $awal = $setoranAwal->get($i, 0);
+            $setoranGabungan[] = $transaksi + $awal;
         }
-    
+
+        // Penarikan tetap sama
+        $penarikanData = TransaksiTabungan::where('jenis_transaksi', 'Penarikan')
+            ->selectRaw('MONTH(created_at) as month, SUM(jumlah) as total')
+            ->groupBy(\DB::raw('MONTH(created_at)'))
+            ->pluck('total', 'month');
+
+        $penarikanDataFormatted = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $penarikanDataFormatted[] = $penarikanData->get($i, 0);
+        }
+
+        $labels = range(1, 12);
+
         return view('tupusat.dashboard.index', compact(
             'siswaAktif',
             'totalSaldoAwal',
             'totalSaldoAkhir',
             'totalUnit',
             'siswaPerUnit',
-            'labels', 
-            'setoranDataFormatted',  // Menggunakan setoranDataFormatted
-            'penarikanDataFormatted' // Menggunakan penarikanDataFormatted
+            'labels',
+            'setoranGabungan',
+            'penarikanDataFormatted'
         ));
     }
 }

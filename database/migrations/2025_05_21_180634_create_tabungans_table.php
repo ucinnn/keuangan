@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('siswa_id')->constrained('siswas')->onDelete('cascade');
             $table->decimal('saldo_awal', 15, 2)->default(0);
             $table->enum('status', ['Aktif', 'Non Aktif'])->default('Aktif');
+            $table->string('username');
+            $table->foreign('username')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();  // Menambahkan kolom deleted_at untuk SoftDeletes
         });

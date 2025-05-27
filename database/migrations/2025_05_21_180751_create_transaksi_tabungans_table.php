@@ -17,7 +17,6 @@ return new class extends Migration
             $table->enum('jenis_transaksi', ['Setoran', 'Penarikan']);
             $table->decimal('jumlah', 15, 2);
             $table->string('keterangan')->nullable();
-            $table->date('tanggal');
             $table->string('username');
             $table->foreign('username')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

@@ -71,44 +71,63 @@
                             <th class="py-3 px-4 border-b">Tanggal</th>
                             <th class="py-3 px-4 border-b">Jenis</th>
                             <th class="py-3 px-4 border-b">Jumlah</th>
-                            <th class="py-3 px-4 border-b">Keterangan</th>
+                            <th class="py-3 px-4 border-b">Saldo</th>
                             <th class="py-3 px-4 border-b">Petugas</th>
+                            <th class="py-3 px-4 border-b">Keterangan</th>
                             <th class="py-3 px-4 border-b">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @forelse ($transaksi as $trx)
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-2 px-4 border-b">{{ $trx->tanggal }}</td>
-                                <td class="py-2 px-4 border-b">{{ $trx->jenis_transaksi }}</td>
-                                <td class="py-2 px-4 border-b text-green-700">
-                                    Rp {{ number_format($trx->jumlah, 0, ',', '.') }}
-                                </td>
-                                <td class="py-2 px-4 border-b">{{ $trx->keterangan }}</td>
-                                <td class="py-2 px-4 border-b">{{ $trx->user->username }}</td>
-                                <td class="py-2 px-4 border-b text-center whitespace-nowrap">
-                                    <a href="{{ route('tupusat.transaksi.edit', $trx->id) }}"
-                                       class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 text-xs rounded mr-1">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('tupusat.transaksi.destroy', $trx->id) }}" method="POST"
-                                          class="inline-block"
-                                          onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 text-xs rounded">
-                                            Hapus
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="py-4 text-center text-gray-500">Belum ada transaksi.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
+                 <tbody>
+                    {{-- Baris saldo awal --}}
+                    <tr class="bg-gray-50 text-center">
+                        <td class="py-2 px-4 border-b">{{ $tabungan->created_at->translatedFormat('d F Y h:i') }}</td>
+                        <td class="py-2 px-4 border-b font-semibold">Setoran Awal</td>
+                        <td class="py-2 px-4 border-b text-green-700">
+                            Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}
+                        </td>
+                          <td class="py-2 px-4 border-b text-blue-700">
+                            Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}
+                        </td>
+                        <td class="py-2 px-4 border-b">{{ $tabungan->user->username }}</td>
+                        <td class="py-2 px-4 border-b"></td>
+                    </tr>
+
+                    {{-- Riwayat transaksi --}}
+                    @forelse ($transaksi as $trx)
+                        <tr class="hover:bg-gray-50 text-center">
+                            <td class="py-2 px-4 border-b">{{ $trx->created_at->translatedFormat('d F Y h:i') }}</td>
+                            <td class="py-2 px-4 border-b">{{ $trx->jenis_transaksi }}</td>
+                            <td class="py-2 px-4 border-b {{ $trx->jenis_transaksi == 'Penarikan' ? 'text-red-600' : 'text-green-700' }}">
+                                Rp {{ number_format($trx->jumlah, 0, ',', '.') }}
+                            </td>
+                               <td class="py-2 px-4 border-b text-blue-700">
+                                Rp {{ number_format($trx->saldo_berjalan, 0, ',', '.') }}
+                            </td>
+                            <td class="py-2 px-4 border-b">{{ $trx->user->username }}</td>
+                            <td class="py-2 px-4 border-b">{{ $trx->keterangan }}</td>
+                            <td colspan="2" class="py-2 px-4 border-b text-center whitespace-nowrap">
+                                <a href="{{ route('tupusat.transaksi.edit', $trx->id) }}"
+                                class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 text-xs rounded mr-1">
+                                    Edit
+                                </a>
+                                <form action="{{ route('tupusat.transaksi.destroy', $trx->id) }}" method="POST"
+                                    class="inline-block"
+                                    onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 text-xs rounded">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="py-4 text-center text-gray-500">Belum ada transaksi.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
                 </table>
             </div>
         </div>

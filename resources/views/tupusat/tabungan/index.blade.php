@@ -7,6 +7,10 @@
             <div class="flex justify-between items-center mb-6">
               <div class="text-2xl font-bold text-gray-800">Daftar Tabungan Siswa</div>
               <div class="flex space-x-2">
+                 <a href="{{ route('tupusat.tabungan.index') }}"
+                    class="bg-blue-400 text-white px-4 py-2 rounded flex items-center hover:bg-blue-500">
+                      <i class="fas fa-file-export mr-2"></i> Data Tabungan
+                  </a>
                   <a href="{{ route('tupusat.tabungan.export.all') }}"
                     class="bg-blue-600 text-white px-4 py-2 rounded flex items-center hover:bg-blue-700">
                       <i class="fas fa-file-export mr-2"></i> Export Excel
@@ -22,7 +26,6 @@
               </div>
             </div>
 
-            <!-- Form Pencarian dan Filter -->
 <!-- Form Pencarian dan Filter -->
 <div class="mb-4 flex justify-between items-center">
     <form action="{{ route('tupusat.tabungan.index') }}" method="GET" class="flex flex-wrap gap-2 items-center">
@@ -83,6 +86,9 @@
                                 <th class="py-2 px-4 border-r">Kelas</th>
                                 <th class="py-2 px-4 border-r">Saldo Awal</th>
                                 <th class="py-2 px-4 border-r">Saldo Akhir</th>
+                                @if(request()->get('trashed'))
+                                <th class="py-2 px-4 border-r">Deleted By</th>
+                                @endif
                                 <th class="py-2 px-4 border-r">Status</th>
                                 <th class="py-2 px-4">Aksi</th>
                             </tr>
@@ -96,6 +102,9 @@
                                     <td class="py-2 px-4 border-r">{{ $tabungan->siswa->kelas->nama_kelas ?? '-' }}</td>
                                     <td class="py-2 px-4 border-r">Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}</td>
                                     <td class="py-2 px-4 border-r">Rp {{ number_format($tabungan->saldo_akhir, 0, ',', '.') }}</td>
+                                    @if(request()->get('trashed'))
+                                    <td class="py-2 px-4 border-b">{{ $tabungan->user->username }}</td>
+                                    @endif
                                     <td class="py-2 px-4 border-r">
                                         @php
                                             $statusColor = match($tabungan->status) {
@@ -116,6 +125,13 @@
                                               <i class="fas fa-undo mr-1"></i> Restore
                                           </button>
                                       </form>
+                                           <form action="{{ route('tupusat.tabungan.forceDelete', $tabungan->id) }}" method="POST" onsubmit="return confirm('Hapus permanen?, Anda akan kehilangan data selamanya jika melakukan ini')" class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                          <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-800 transition">
+                                              <i class="fas fa-trash mr-1"></i> Hapus Permanen
+                                                </button>
+                                            </form>
                                   @else
                                       <a href="{{ route('tabungan.show', $tabungan->id) }}"
                                         class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600 transition">
@@ -134,7 +150,11 @@
                           </tr>
                       @empty
                                 <tr>
-                                    <td colspan="5" class="py-4 text-center text-gray-500">Tidak ada data tabungan.</td>
+                                    @if(request()->get('trashed'))
+                                    <td colspan="9" class="py-4 text-center text-gray-500">Tidak ada data tabungan.</td>
+                                    @else
+                                    <td colspan="8" class="py-4 text-center text-gray-500">Tidak ada data tabungan.</td>
+                                    @endif
                                 </tr>
                             @endforelse
                         </tbody>

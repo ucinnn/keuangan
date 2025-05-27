@@ -20,7 +20,6 @@ class TransaksiTabunganController extends Controller
         $request->validate([
             'jenis_transaksi' => 'required|in:Setoran,Penarikan',
             'jumlah' => 'required|numeric|min:100',
-            'tanggal' => 'required|date',
             'keterangan' => 'nullable|string'
         ]);
 
@@ -38,7 +37,6 @@ class TransaksiTabunganController extends Controller
             'tabungan_id' => $tabungan->id,
             'jenis_transaksi' => $request->jenis_transaksi,
             'jumlah' => $request->jumlah,
-            'tanggal' => $request->tanggal,
             'keterangan' => $request->keterangan,
             'username' => $request->username, // <- Pastikan ini disimpan
         ]);
@@ -57,7 +55,6 @@ class TransaksiTabunganController extends Controller
         $request->validate([
             'jenis_transaksi' => 'required|in:Setoran,Penarikan',
             'jumlah' => 'required|numeric|min:100',
-            'tanggal' => 'required|date',
             'keterangan' => 'nullable|string'
         ]);
 

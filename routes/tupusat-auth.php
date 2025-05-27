@@ -43,6 +43,9 @@ Route::prefix('tupusat')->middleware('auth:tupusat', 'verified')->group(function
     Route::delete('tabungan/{id}', [TabunganController::class, 'destroy'])->name('tupusat.tabungan.destroy');
     // Restore Soft Delete
     Route::post('tabungan/{id}/restore', [TabunganController::class, 'restore'])->name('tupusat.tabungan.restore');
+    //delete permanent
+    Route::delete('tabungan/{id}/force-delete', [TabunganController::class, 'forceDelete'])->name('tupusat.tabungan.forceDelete');
+
 
     Route::get('kas', [KasController::class, 'index'])->name('tupusat.kas.index');
     Route::get('kas/create', [KasController::class, 'create'])->name('tupusat.kas.create');

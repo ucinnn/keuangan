@@ -15,12 +15,18 @@ class Tabungan extends Model
         'saldo_awal',
         'saldo_akhir',  // Jika kamu ingin menghitung saldo akhir secara otomatis
         'status',
+        'username',
     ];
 
     // Relasi ke siswa
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'username', 'username');
     }
 
     // Relasi ke transaksi tabungan

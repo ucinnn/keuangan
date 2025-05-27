@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                {{-- <div class="flex flex-col w-1/2 h-full justify-between ">
+                <div class="flex flex-col w-1/2 h-full justify-between ">
                     <div class="flex-1 p-4">
                     </div>
                     <!-- Contextual Pie Chart -->
@@ -53,7 +53,7 @@
                         <p class="text-lg font-semibold mb-4">Data Siswa By Unit</p>
                         <canvas id="resonanceChart"></canvas>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
     new Chart(ctxResonance, {
         type: 'polarArea',
         data: {
-            labels: ['TK','SD','SMP','SMA','TPQ','PONDOK','MADIN'],
+            labels: ['TK','SD','SMP','SMA','TPQ','MADIN','PONDOK'],
             datasets: [{
                 data: [dataSiswa.2, dataSiswa.3, dataSiswa.4, dataSiswa.5, dataSiswa.6, dataSiswa.7, dataSiswa.8],
                 backgroundColor: ['#f472b6', '#818cf8', '#34d399', '#fbbf24', '#818cf8','#818cf8','#818cf8',]

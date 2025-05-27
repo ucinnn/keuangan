@@ -69,7 +69,7 @@
                 labels: @json($labels), // data bulan
                 datasets: [{
                     label: 'Setoran',
-                    data: @json($setoranDataFormatted),  // Menggunakan setoranDataFormatted
+                    data: @json($setoranGabungan),  // Menggunakan setoranGabungan
                     backgroundColor: 'rgba(40,167,69,0.6)',
                     borderColor: 'rgba(40,167,69,1)',
                     borderWidth: 1

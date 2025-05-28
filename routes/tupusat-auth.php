@@ -31,6 +31,8 @@ Route::prefix('tupusat')->middleware('auth:tupusat', 'verified')->group(function
     Route::post('tabungan', [TabunganController::class, 'store'])->name('tabungan.store');
     // Export Excel seluruh tabungan
     Route::get('tabungan/export', [TabunganController::class, 'exportAll'])->name('tupusat.tabungan.export.all');
+    Route::get('tabungan/{id}/edit', [TabunganController::class, 'edit'])->name('tupusat.tabungan.edit');
+    Route::put('tabungan/{id}', [TabunganController::class, 'update'])->name('tupusat.tabungan.update');
     Route::get('tabungan/{id}', [TabunganController::class, 'show'])->name('tabungan.show');
     Route::get('tabungan/{id}/transaksi/create', [TransaksiTabunganController::class, 'create'])->name('tupusat.transaksi.create');
     Route::post('tabungan/{id}/transaksi', [TransaksiTabunganController::class, 'store'])->name('tupusat.transaksi.store');

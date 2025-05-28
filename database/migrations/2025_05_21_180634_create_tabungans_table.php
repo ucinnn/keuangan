@@ -18,8 +18,11 @@ return new class extends Migration
             $table->enum('status', ['Aktif', 'Non Aktif'])->default('Aktif');
             $table->string('created_by');
             $table->foreign('created_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('updated_by')->nullable();
+            $table->foreign('updated_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('information')->nullable();
             $table->timestamps();
             $table->softDeletes();  // Menambahkan kolom deleted_at untuk SoftDeletes
         });

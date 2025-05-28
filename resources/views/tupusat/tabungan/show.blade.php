@@ -89,7 +89,27 @@
                             Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}
                         </td>
                         <td class="py-2 px-4 border-b">{{ $tabungan->created_by }}</td>
-                        <td class="py-2 px-4 border-b"></td>
+                                      @php
+                                $info = json_decode($tabungan->information, true);
+                            @endphp
+                        <td class="py-2 px-4 border-b text-sm text-gray-700 leading-snug">
+                                @if ($info)
+                                    Telah dilakukan perubahan:
+                                    @foreach ($info['perubahan'] ?? [] as $perubahan)
+                                        <div>- {{ $perubahan }}</div>
+                                    @endforeach
+                                    <div class="mt-1 text-xs text-gray-500">
+                                        Oleh {{ $info['oleh'] }} <br> pada {{ \Carbon\Carbon::parse($info['waktu'])->format('d/m/Y H:i A') }}
+                                    </div>
+                                @else
+                                    <span class="text-gray-400 italic"></span>
+                                @endif
+                            </td>                        <td class="py-2 px-4 border-b text-center whitespace-nowrap">
+                                <a href="{{ route('tupusat.tabungan.edit', $tabungan->id) }}"
+                                class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 text-xs rounded mr-1">
+                                    Edit
+                                </a>
+                            </td>
                     </tr>
 
                     {{-- Riwayat transaksi --}}
@@ -109,19 +129,19 @@
                             @endphp
 
                             <td class="py-2 px-4 border-b text-sm text-gray-700 leading-snug">
-                                Telah dilakukan perubahan:
                                 @if ($info)
+                                    Telah dilakukan perubahan:
                                     @foreach ($info['perubahan'] ?? [] as $perubahan)
                                         <div>- {{ $perubahan }}</div>
                                     @endforeach
                                     <div class="mt-1 text-xs text-gray-500">
-                                        Oleh {{ $info['oleh'] }} pada {{ \Carbon\Carbon::parse($info['waktu'])->format('d/m/Y H:i') }}
+                                        Oleh {{ $info['oleh'] }} <br> pada {{ \Carbon\Carbon::parse($info['waktu'])->format('d/m/Y H:i A') }}
                                     </div>
                                 @else
                                     <span class="text-gray-400 italic"></span>
                                 @endif
                             </td>
-                            <td colspan="2" class="py-2 px-4 border-b text-center whitespace-nowrap">
+                            <td class="py-2 px-4 border-b text-center whitespace-nowrap">
                                 <a href="{{ route('tupusat.transaksi.edit', $trx->id) }}"
                                 class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 text-xs rounded mr-1">
                                     Edit

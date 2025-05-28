@@ -48,7 +48,6 @@
 
                 <input type="hidden" name="petugas" value="{{ Auth::user()->username }}">
 
-
               <!-- Tombol Simpan & Batal -->
         <div class="flex justify-between">
             <a href="{{ route('tabungan.show', $tabungan->id) }}"

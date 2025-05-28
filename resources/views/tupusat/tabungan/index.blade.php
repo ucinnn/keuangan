@@ -97,6 +97,10 @@
                                 <th class="py-2 px-4 border-r">Saldo Akhir</th>
                                 <th class="py-2 px-4 border-r">Created By</th>
                                 @if(request()->get('trashed'))
+                                @else
+                                <th class="py-2 px-4 border-r">Created At</th>
+                                @endif
+                                @if(request()->get('trashed'))
                                 <th class="py-2 px-4 border-r">Deleted By</th>
                                 @endif
                                 <th class="py-2 px-4 border-r">Status</th>
@@ -113,6 +117,10 @@
                                     <td class="py-2 px-4 border-r">Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}</td>
                                     <td class="py-2 px-4 border-r">Rp {{ number_format($tabungan->saldo_akhir, 0, ',', '.') }}</td>
                                     <td class="py-2 px-4 border-b">{{ $tabungan->created_by }}</td>
+                                    @if(request()->get('trashed'))
+                                    @else
+                                    <td class="py-2 px-4 border-b">{{ $tabungan->created_at->translatedFormat('d F Y h:i A') }}</td>
+                                    @endif
                                     @if(request()->get('trashed'))
                                     <td class="py-2 px-4 border-b">{{ $tabungan->deleted_by }}</td>
                                     @endif
@@ -155,9 +163,9 @@
                       @empty
                                 <tr>
                                     @if(request()->get('trashed'))
-                                    <td colspan="9" class="py-4 text-center text-gray-500">Tidak ada data tabungan.</td>
+                                    <td colspan="10" class="py-4 text-center text-gray-500">Tidak ada data tabungan.</td>
                                     @else
-                                    <td colspan="8" class="py-4 text-center text-gray-500">Tidak ada data tabungan.</td>
+                                    <td colspan="10" class="py-4 text-center text-gray-500">Tidak ada data tabungan.</td>
                                     @endif
                                 </tr>
                             @endforelse

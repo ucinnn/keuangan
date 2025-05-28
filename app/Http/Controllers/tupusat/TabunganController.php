@@ -118,7 +118,8 @@ class TabunganController extends Controller
     {
         $request->validate([
             'siswa_id' => 'required|exists:siswas,id',
-            'saldo_awal' => 'required|numeric|min:0'
+            'saldo_awal' => 'required|numeric|min:0',
+            'updated_by' => 'nullable|string',
         ]);
 
         // Cek apakah siswa sudah punya tabungan, termasuk yang sudah di-soft delete
@@ -133,10 +134,32 @@ class TabunganController extends Controller
             'siswa_id' => $request->siswa_id,
             'saldo_awal' => $request->saldo_awal,
             'status' => 'Aktif',
-            'created_by' => $request->created_by,
+            'created_by' => Auth::user()->username,
+            // 'updated_by' => Auth::user()->username,
         ]);
 
+
         return redirect()->route('tupusat.tabungan.index')->with('success', 'Tabungan berhasil dibuat.');
+    }
+
+    public function edit($id)
+    {
+        $tabungan = Tabungan::with('siswa')->findOrFail($id);
+        return view('tupusat.tabungan.edit', compact('tabungan'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'saldo_awal' => 'required|numeric',
+            'updated_by' => 'nullable|string',
+            'information' => 'nullable|string',
+        ]);
+
+        $tabungan = Tabungan::findOrFail($id);
+        $tabungan->update($request->all());
+
+        return redirect()->route('tupusat.tabungan.index', $tabungan->tabungan_id)->with('success', 'Tabungan berhasil diperbarui.');
     }
 
 

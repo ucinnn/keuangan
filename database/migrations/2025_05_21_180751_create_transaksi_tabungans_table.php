@@ -17,8 +17,6 @@ return new class extends Migration
             $table->enum('jenis_transaksi', ['Setoran', 'Penarikan']);
             $table->decimal('jumlah', 15, 2);
             $table->string('keterangan')->nullable();
-            $table->string('deleted_by')->nullable();
-            $table->foreign('deleted_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('updated_by')->nullable();
             $table->foreign('updated_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('petugas');

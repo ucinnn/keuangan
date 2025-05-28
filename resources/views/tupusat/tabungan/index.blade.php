@@ -26,41 +26,50 @@
               </div>
             </div>
 
-<!-- Form Pencarian dan Filter -->
-<div class="mb-4 flex justify-between items-center">
-    <form action="{{ route('tupusat.tabungan.index') }}" method="GET" class="flex flex-wrap gap-2 items-center">
-        <input type="text" name="search" value="{{ request()->get('search') }}" 
-               class="border border-gray-300 rounded px-4 py-2 w-64" placeholder="Cari nama siswa...">
+            <!-- Form Pencarian dan Filter -->
+            @if(request()->get('trashed'))
+            @else
+            <div class="mb-4 flex justify-between items-center">
+                <form action="{{ route('tupusat.tabungan.index') }}" method="GET" class="flex flex-wrap gap-2 items-center">
+                    <input type="text" name="search" value="{{ request()->get('search') }}"
+                        class="border border-gray-300 rounded px-4 py-2 w-64" placeholder="Cari nama siswa...">
 
-        <select name="unit" class="border border-gray-300 rounded px-4 py-2">
-            <option value="">Semua Unit</option>
-            @foreach ($units as $unit)
-                <option value="{{ $unit->id }}" {{ request('unit') == $unit->id ? 'selected' : '' }}>
-                    {{ $unit->namaUnit }}
-                </option>
-            @endforeach
-        </select>
+                    <select name="unit" class="border border-gray-300 rounded px-4 py-2">
+                        <option value="">Semua Unit</option>
+                        @foreach ($units as $unit)
+                            <option value="{{ $unit->id }}" {{ request('unit') == $unit->id ? 'selected' : '' }}>
+                                {{ $unit->namaUnit }}
+                            </option>
+                        @endforeach
+                    </select>
 
-        <select name="kelas" class="border border-gray-300 rounded px-4 py-2">
-            <option value="">Semua Kelas</option>
-            @foreach ($kelasList as $kelas)
-                <option value="{{ $kelas->id }}" {{ request('kelas') == $kelas->id ? 'selected' : '' }}>
-                    {{ $kelas->nama_kelas }}
-                </option>
-            @endforeach
-        </select>
+                    <select name="kelas" class="border border-gray-300 rounded px-4 py-2">
+                        <option value="">Semua Kelas</option>
+                        @foreach ($kelasList as $kelas)
+                            <option value="{{ $kelas->id }}" {{ request('kelas') == $kelas->id ? 'selected' : '' }}>
+                                {{ $kelas->nama_kelas }}
+                            </option>
+                        @endforeach
+                    </select>
 
-        <select name="status" class="border border-gray-300 rounded px-4 py-2">
-            <option value="">Status Tabungan</option>
-            <option value="Aktif" {{ request()->get('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-            <option value="Non Aktif" {{ request()->get('status') == 'Non Aktif' ? 'selected' : '' }}>Non Aktif</option>
-        </select>
+                    <select name="status" class="border border-gray-300 rounded px-4 py-2">
+                        <option value="">Status Tabungan</option>
+                        <option value="Aktif" {{ request()->get('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Non Aktif" {{ request()->get('status') == 'Non Aktif' ? 'selected' : '' }}>Non Aktif</option>
+                    </select>
 
-        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Filter</button>
-    </form>
-</div>
-
-
+                    <div class="flex gap-2">
+                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                            Filter
+                        </button>
+                        <a href="{{ route('tupusat.tabungan.index') }}"
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded inline-block">
+                            Reset
+                        </a>
+                    </div>
+                </form>
+            </div>
+            @endif
             <!-- Konten -->
             <div class="bg-white p-4 rounded shadow">
                 @if(session('success'))
@@ -127,13 +136,6 @@
                                               <i class="fas fa-undo mr-1"></i> Restore
                                           </button>
                                       </form>
-                                           <form action="{{ route('tupusat.tabungan.forceDelete', $tabungan->id) }}" method="POST" onsubmit="return confirm('Hapus permanen?, Anda akan kehilangan data selamanya jika melakukan ini')" class="inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                          <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-800 transition">
-                                              <i class="fas fa-trash mr-1"></i> Hapus Permanen
-                                                </button>
-                                            </form>
                                   @else
                                       <a href="{{ route('tabungan.show', $tabungan->id) }}"
                                         class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600 transition">

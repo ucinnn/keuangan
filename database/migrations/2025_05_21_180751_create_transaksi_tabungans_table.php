@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->string('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('updated_by')->nullable();
+            $table->foreign('updated_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('petugas');
+            $table->string('information')->nullable();
             $table->foreign('petugas')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

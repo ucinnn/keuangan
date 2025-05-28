@@ -8,6 +8,7 @@ use App\Models\Siswa;
 use App\Models\UnitPendidikan;
 use App\Models\TransaksiTabungan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -28,14 +29,17 @@ class DashboardController extends Controller
             ->groupBy('unitpendidikan_id')
             ->get();
 
-        // Ambil setoran per bulan dari transaksi
-        $setoranTransaksi = TransaksiTabungan::where('jenis_transaksi', 'Setoran')
-            ->selectRaw('MONTH(created_at) as month, SUM(jumlah) as total')
-            ->groupBy(\DB::raw('MONTH(created_at)'))
+        // Ambil setoran per bulan dari transaksi (hanya tabungan yang statusnya aktif)
+        $setoranTransaksi = TransaksiTabungan::join('tabungans', 'transaksi_tabungans.tabungan_id', '=', 'tabungans.id')
+            ->where('transaksi_tabungans.jenis_transaksi', 'Setoran')
+            ->where('tabungans.status', 'Aktif')
+            ->selectRaw('MONTH(transaksi_tabungans.created_at) as month, SUM(transaksi_tabungans.jumlah) as total')
+            ->groupBy(\DB::raw('MONTH(transaksi_tabungans.created_at)'))
             ->pluck('total', 'month');
 
-        // Ambil saldo_awal tabungan dan kelompokkan berdasarkan bulan
-        $setoranAwal = Tabungan::selectRaw('MONTH(created_at) as month, SUM(saldo_awal) as total')
+        // Ambil saldo_awal tabungan dan kelompokkan berdasarkan bulan (hanya tabungan yang statusnya aktif)
+        $setoranAwal = Tabungan::where('status', 'Aktif')
+            ->selectRaw('MONTH(created_at) as month, SUM(saldo_awal) as total')
             ->groupBy(\DB::raw('MONTH(created_at)'))
             ->pluck('total', 'month');
 
@@ -47,10 +51,12 @@ class DashboardController extends Controller
             $setoranGabungan[] = $transaksi + $awal;
         }
 
-        // Penarikan tetap sama
-        $penarikanData = TransaksiTabungan::where('jenis_transaksi', 'Penarikan')
-            ->selectRaw('MONTH(created_at) as month, SUM(jumlah) as total')
-            ->groupBy(\DB::raw('MONTH(created_at)'))
+        // Penarikan hanya dari tabungan yang statusnya aktif
+        $penarikanData = TransaksiTabungan::join('tabungans', 'transaksi_tabungans.tabungan_id', '=', 'tabungans.id')
+            ->where('transaksi_tabungans.jenis_transaksi', 'Penarikan')
+            ->where('tabungans.status', 'Aktif')
+            ->selectRaw('MONTH(transaksi_tabungans.created_at) as month, SUM(transaksi_tabungans.jumlah) as total')
+            ->groupBy(\DB::raw('MONTH(transaksi_tabungans.created_at)'))
             ->pluck('total', 'month');
 
         $penarikanDataFormatted = [];

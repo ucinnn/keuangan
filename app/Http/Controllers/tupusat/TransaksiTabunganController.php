@@ -55,8 +55,9 @@ class TransaksiTabunganController extends Controller
     {
         $request->validate([
             'jenis_transaksi' => 'required|in:Setoran,Penarikan',
-            'jumlah' => 'required|numeric|min:100',
-            'keterangan' => 'nullable|string'
+            'jumlah' => 'required|numeric   ',
+            'keterangan' => 'nullable|string',
+            'updated_by' => 'required|string',
         ]);
 
         $transaksi = TransaksiTabungan::findOrFail($id);
@@ -68,7 +69,7 @@ class TransaksiTabunganController extends Controller
     public function destroy($id)
     {
         $transaksi = TransaksiTabungan::findOrFail($id);
-        $transaksi->deleted_by = Auth::user()->username; // Atau ->name / ->email tergantung kolom di User
+        $transaksi->deleted_by = Auth::user()->username;
         $tabunganId = $transaksi->tabungan_id;
         $transaksi->delete();
 

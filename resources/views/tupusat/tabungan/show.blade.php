@@ -55,10 +55,10 @@
                     Terapkan
                 </button>
                 @if(request()->has('start') || request()->has('end'))
-                    <a href="{{ route('tabungan.show', $tabungan->id) }}"
-                       class="text-sm text-blue-600 underline ml-2">
-                        Reset
-                    </a>
+                  <a href="{{ route('tabungan.show', $tabungan->id) }}"
+                class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded">
+                    Reset
+                </a>
                 @endif
             </form>
 
@@ -73,7 +73,7 @@
                             <th class="py-3 px-4 border-b">Jumlah</th>
                             <th class="py-3 px-4 border-b">Saldo</th>
                             <th class="py-3 px-4 border-b">Petugas</th>
-                            <th class="py-3 px-4 border-b">Keterangan</th>
+                            <th class="py-3 px-4 border-b">Informasi</th>
                             <th class="py-3 px-4 border-b">Aksi</th>
                         </tr>
                     </thead>
@@ -104,13 +104,29 @@
                                 Rp {{ number_format($trx->saldo_berjalan, 0, ',', '.') }}
                             </td>
                             <td class="py-2 px-4 border-b">{{ $trx->petugas }}</td>
-                            <td class="py-2 px-4 border-b">{{ $trx->keterangan }}</td>
+                            @php
+                                $info = json_decode($trx->information, true);
+                            @endphp
+
+                            <td class="py-2 px-4 border-b text-sm text-gray-700 leading-snug">
+                                Telah dilakukan perubahan:
+                                @if ($info)
+                                    @foreach ($info['perubahan'] ?? [] as $perubahan)
+                                        <div>- {{ $perubahan }}</div>
+                                    @endforeach
+                                    <div class="mt-1 text-xs text-gray-500">
+                                        Oleh {{ $info['oleh'] }} pada {{ \Carbon\Carbon::parse($info['waktu'])->format('d/m/Y H:i') }}
+                                    </div>
+                                @else
+                                    <span class="text-gray-400 italic"></span>
+                                @endif
+                            </td>
                             <td colspan="2" class="py-2 px-4 border-b text-center whitespace-nowrap">
                                 <a href="{{ route('tupusat.transaksi.edit', $trx->id) }}"
                                 class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 text-xs rounded mr-1">
                                     Edit
                                 </a>
-                                <form action="{{ route('tupusat.transaksi.destroy', $trx->id) }}" method="POST"
+                                {{-- <form action="{{ route('tupusat.transaksi.destroy', $trx->id) }}" method="POST"
                                     class="inline-block"
                                     onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
                                     @csrf
@@ -119,7 +135,7 @@
                                             class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 text-xs rounded">
                                         Hapus
                                     </button>
-                                </form>
+                                </form> --}}
                             </td>
                         </tr>
                     @empty

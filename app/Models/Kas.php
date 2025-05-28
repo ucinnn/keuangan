@@ -15,9 +15,9 @@ class Kas extends Model
     // Field yang bisa diisi
     protected $fillable = ['nama_kas', 'kategori', 'status'];
 
-        // Define relationship with TransaksiKas
-        public function transaksiKas()
-        {
-            return $this->hasMany(TransaksiKas::class, 'kas_id');
-        }
+    // Define relationship with TransaksiKas
+    public function transaksiKas()
+    {
+        return $this->hasMany(TransaksiKas::class, 'kas_id');
+    }
 }

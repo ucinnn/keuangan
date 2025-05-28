@@ -1,7 +1,10 @@
-<x-layout-tupusat>
-    <x-slot name="header"></x-slot>
+ <x-layout-tupusat>   
+    <x-slot name="header">
 
-<div class="container">
+    </x-slot>
+    
+    <div class="max-w-3xl mx-auto mt-6">
+            <div class="bg-white p-6 rounded-lg shadow-md">
     <h1>Tambah Transaksi Kas</h1>
 
     <form action="{{ route('tupusat.kas.store') }}" method="POST">
@@ -31,6 +34,8 @@
             </select>
         </div>
 
+        <input type="hidden" name="created_by" id="created_by" value="{{ Auth::user()->username }}">
+
         <div class="form-group">
             <label for="keterangan">Keterangan</label>
             <textarea name="keterangan" id="keterangan" class="form-control" rows="3"></textarea>
@@ -39,5 +44,6 @@
         <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
     </form>
 </div>
+    </div>
 
 </x-layout-tupusat>

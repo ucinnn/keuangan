@@ -19,10 +19,8 @@ return new class extends Migration
             $table->foreignId('unitpendidikan_id')->constrained('unitpendidikan')->onDelete('cascade');
             $table->string('created_by');
             $table->foreign('created_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('deleted_by')->nullable( );
+            $table->string('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('petugas');
-            $table->foreign('petugas')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

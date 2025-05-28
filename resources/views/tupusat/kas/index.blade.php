@@ -68,7 +68,7 @@
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Tipe</th>
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Nominal</th>
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Unit Pendidikan</th>
-                        <th class="px-4 py-2 text-left text-sm text-gray-700">Petugas</th>
+                        <th class="px-4 py-2 text-left text-sm text-gray-700">Created By</th>
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Keterangan</th>
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Aksi</th>
                     </tr>
@@ -81,7 +81,7 @@
                         <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->tipe }}</td>
                         <td class="px-4 py-2 text-sm text-gray-700">Rp. {{ number_format($transaksi->nominal, 2, ',', '.') }}</td>
                         <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->unitpendidikan->namaUnit }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->username }}</td>
+                        <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->created_by }}</td>
                         <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->keterangan }}</td>
                         <td class="px-4 py-2 text-sm">
                               <a href="{{ route('tupusat.kas.edit', $transaksi->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a> |

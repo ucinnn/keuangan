@@ -36,6 +36,7 @@ class KasController extends Controller
             'nominal' => 'required|numeric|min:1',
             'unitpendidikan_id' => 'required|exists:unitpendidikan,id',
             'keterangan' => 'nullable|string|max:255',
+            'created_by' => 'required|string',
         ]);
 
         TransaksiKas::create([
@@ -43,6 +44,7 @@ class KasController extends Controller
             'nominal' => $request->nominal,
             'unitpendidikan_id' => $request->unitpendidikan_id,
             'keterangan' => $request->keterangan,
+            'created_by' => $request->created_by
         ]);
 
         return redirect()->route('tupusat.kas.index')->with('success', 'Transaksi kas berhasil ditambahkan');
@@ -54,7 +56,7 @@ class KasController extends Controller
         $transaksiKas = TransaksiKas::findOrFail($id);
         $kas = Kas::where('status', 'Aktif')->get();
         $unitPendidikan = UnitPendidikan::all();
-    
+
         return view('tupusat.kas.edit', compact('transaksiKas', 'kas', 'unitPendidikan'));
     }
 
@@ -67,7 +69,7 @@ class KasController extends Controller
             'unitpendidikan_id' => 'required|exists:unitpendidikan,id',
             'keterangan' => 'nullable|string|max:255',
         ]);
-    
+
         $transaksiKas = TransaksiKas::findOrFail($id);
         $transaksiKas->update([
             'kas_id' => $request->kas_id,
@@ -75,7 +77,7 @@ class KasController extends Controller
             'unitpendidikan_id' => $request->unitpendidikan_id,
             'keterangan' => $request->keterangan,
         ]);
-    
+
         return redirect()->route('tupusat.kas.index')->with('success', 'Transaksi kas berhasil diperbarui.');
     }
 
@@ -84,31 +86,30 @@ class KasController extends Controller
     {
         $transaksiKas = TransaksiKas::findOrFail($id);
         $transaksiKas->delete();
-    
+
         return redirect()->route('tupusat.kas.index')->with('success', 'Transaksi kas berhasil dihapus.');
     }
 
     public function trashed()
     {
         $trashedTransaksiKas = TransaksiKas::onlyTrashed()->with(['kas', 'unitpendidikan'])->get();
-    
-        return view('tupusat.kas.trashed', compact('trashedTransaksiKas'));    
+
+        return view('tupusat.kas.trashed', compact('trashedTransaksiKas'));
     }
 
-public function restore($id)
-{
-    $transaksi = TransaksiKas::onlyTrashed()->findOrFail($id);
-    $transaksi->restore();
+    public function restore($id)
+    {
+        $transaksi = TransaksiKas::onlyTrashed()->findOrFail($id);
+        $transaksi->restore();
 
-    return redirect()->route('tupusat.kas.index')->with('success', 'Transaksi berhasil direstore.');
-}
+        return redirect()->route('tupusat.kas.index')->with('success', 'Transaksi berhasil direstore.');
+    }
 
-public function forceDelete($id)
-{
-    $transaksi = TransaksiKas::onlyTrashed()->findOrFail($id);
-    $transaksi->forceDelete();
+    public function forceDelete($id)
+    {
+        $transaksi = TransaksiKas::onlyTrashed()->findOrFail($id);
+        $transaksi->forceDelete();
 
-    return redirect()->route('tupusat.kas.trashed')->with('success', 'Transaksi berhasil dihapus permanen.');
-}
-
+        return redirect()->route('tupusat.kas.trashed')->with('success', 'Transaksi berhasil dihapus permanen.');
+    }
 }

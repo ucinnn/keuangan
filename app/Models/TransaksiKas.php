@@ -12,7 +12,7 @@ class TransaksiKas extends Model
 
     protected $table = 'transaksi_kas'; // Jika nama tabel berbeda dengan nama model
 
-    protected $fillable = ['kas_id', 'nominal', 'unitpendidikan_id', 'keterangan'];
+    protected $fillable = ['kas_id', 'nominal', 'unitpendidikan_id', 'keterangan', 'created_by', 'delested_by'];
 
     // Define relationship with Kas
     public function kas()

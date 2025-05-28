@@ -145,18 +145,22 @@
                                           </button>
                                       </form>
                                   @else
-                                      <a href="{{ route('tabungan.show', $tabungan->id) }}"
-                                        class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600 transition">
-                                          <i class="fas fa-eye mr-1"></i> Detail
-                                      </a>
+                                 <div class="flex gap-2">
+                                    <a href="{{ route('tabungan.show', $tabungan->id) }}"
+                                    class="bg-blue-500 text-white px-3 py-1.5 rounded text-xs hover:bg-blue-600 transition w-full text-center">
+                                        <i class="fas fa-eye mr-1"></i> Detail
+                                    </a>
 
-                                      <form action="{{ route('tupusat.tabungan.destroy', $tabungan->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus tabungan ini?')" class="inline">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition">
-                                              <i class="fas fa-trash mr-1"></i> Hapus
-                                          </button>
-                                      </form>
+                                    <form action="{{ route('tupusat.tabungan.destroy', $tabungan->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus tabungan ini?')" class="w-full">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="bg-red-500 text-white px-3 py-1.5 rounded text-xs hover:bg-red-600 transition w-full">
+                                            <i class="fas fa-trash mr-1"></i> Hapus
+                                        </button>
+                                    </form>
+                                </div>
                                   @endif
                               </td>
                           </tr>

@@ -79,7 +79,7 @@
                     </thead>
                  <tbody>
                     {{-- Baris saldo awal --}}
-                    <tr class="bg-gray-50 text-center">
+                    <tr class="bg-gray-200 text-center">
                         <td class="py-2 px-4 border-b">{{ $tabungan->created_at->translatedFormat('d F Y h:i A') }}</td>
                         <td class="py-2 px-4 border-b font-semibold">Setoran Awal</td>
                         <td class="py-2 px-4 border-b text-green-700">

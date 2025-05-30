@@ -4,48 +4,74 @@
     <meta charset="UTF-8">
     <title>Laporan Tabungan Siswa</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+            body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
             color: #333;
-            margin: 20px;
+            margin: 40px;
+            background-color: #f9f9f9;
         }
 
         h3 {
             margin-bottom: 5px;
+            font-size: 20px;
+            color: #2c3e50;
         }
 
         h4 {
             margin-top: 30px;
             margin-bottom: 10px;
+            font-size: 16px;
+            color: #34495e;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
         }
 
         p {
-            margin: 2px 0;
+            margin: 4px 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        table, th, td {
-            border: 1px solid #555;
+            margin-top: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background-color: white;
         }
 
         th {
-            background-color: #f2f2f2;
-            padding: 8px;
+            background-color: #f0f4f8;
+            color: #2c3e50;
+            padding: 10px 12px;
             text-align: left;
+            border-bottom: 2px solid #ccc;
         }
 
         td {
-            padding: 8px;
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         .saldo {
-            margin-top: 15px;
+            margin-top: 20px;
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 6px;
+            width: fit-content;
+        }
+
+        .text-red-600 {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .text-green-700 {
+            color: #27ae60;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -77,7 +103,7 @@
                 <tr>
                     <td>{{ $trx->created_at->translatedFormat('d F Y h:i A') }}</td>
                     <td>{{ $trx->jenis_transaksi }}</td>
-                    <td class="py-2 px-4 border-b {{ $trx->jenis_transaksi == 'Penarikan' ? 'text-red-600' : 'text-green-700' }}">
+                    <td class="{{ $trx->jenis_transaksi == 'Penarikan' ? 'text-red-600' : 'text-green-700' }}">
                         Rp {{ number_format($trx->jumlah, 0, ',', '.') }}
                     </td>
                     <td>Rp {{ number_format($trx->saldo_berjalan, 0, ',', '.') }}</td>

@@ -70,6 +70,7 @@
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Unit Pendidikan</th>
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Created By</th>
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Keterangan</th>
+                        <th class="px-4 py-2 text-left text-sm text-gray-700">Informasi</th>
                         <th class="px-4 py-2 text-left text-sm text-gray-700">Aksi</th>
                     </tr>
                 </thead>
@@ -83,6 +84,22 @@
                         <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->unitpendidikan->namaUnit }}</td>
                         <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->created_by }}</td>
                         <td class="px-4 py-2 text-sm text-gray-700">{{ $transaksi->keterangan }}</td>
+                         @php
+                            $info = json_decode($transaksi->information, true);
+                        @endphp
+                        <td class="py-2 px-4 border-b text-sm text-gray-700 leading-snug">
+                                @if ($info)
+                                    Telah dilakukan perubahan:
+                                    @foreach ($info['perubahan'] ?? [] as $perubahan)
+                                        <div>- {{ $perubahan }}</div>
+                                    @endforeach
+                                    <div class="mt-1 text-xs text-gray-500">
+                                        Oleh {{ $info['oleh'] }} <br> pada {{ \Carbon\Carbon::parse($info['waktu'])->format('d/m/Y H:i A') }}
+                                    </div>
+                                @else
+                                    <span class="text-gray-400 italic"></span>
+                                @endif
+                            </td>      
                         <td class="px-4 py-2 text-sm">
                               <a href="{{ route('tupusat.kas.edit', $transaksi->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a> |
                           <form action="{{ route('tupusat.kas.destroy', $transaksi->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin hapus?')">

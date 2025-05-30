@@ -89,7 +89,7 @@
                             Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}
                         </td>
                         <td class="py-2 px-4 border-b">{{ $tabungan->created_by }}</td>
-                                      @php
+                            @php
                                 $info = json_decode($tabungan->information, true);
                             @endphp
                         <td class="py-2 px-4 border-b text-sm text-gray-700 leading-snug">

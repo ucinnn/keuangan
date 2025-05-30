@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('kas_id')->constrained('kas')->onDelete('cascade'); // Relasi dengan kas
             $table->decimal('nominal', 15, 2);
             $table->text('keterangan')->nullable();
+            $table->string('information')->nullable();
             $table->foreignId('unitpendidikan_id')->constrained('unitpendidikan')->onDelete('cascade');
             $table->string('created_by');
             $table->foreign('created_by')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');

@@ -4,7 +4,7 @@
 <x-slot name="header">
 
 </x-slot>
-    <div class="mx-auto mt-10 px-6" style="max-width: 1250px">
+    <div class="mx-auto mt-10 px-6" style="max-width: 1200px">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <!-- Statistik Total Uang Masuk -->
                <div class="p-6 bg-white border-l-4 border-green-500 rounded-lg shadow-md">

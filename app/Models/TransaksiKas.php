@@ -40,12 +40,19 @@ class TransaksiKas extends Model
                 $changes[] = "Nominal dari Rp " . number_format($original['nominal'], 0, ',', '.') . " menjadi Rp " . number_format($model->nominal, 0, ',', '.');
             }
 
+
+
             // Unit Pendidikan
-            if ($model->unitpendidikan_id !== $original['unitpendidikan_id']) {
-                $from = $original['unitpendidikan_id'] ?: '-';
-                $to = $model->unitpendidikan_id ?: '-';
-                $changes[] = "Unitpendidikan dari \"$from\" menjadi \"$to\"";
+            $fromUnit = \App\Models\UnitPendidikan::find($original['unitpendidikan_id']);
+            $toUnit = \App\Models\UnitPendidikan::find($model->unitpendidikan_id);
+
+            $from = $fromUnit ? $fromUnit->namaUnit : '-';
+            $to = $toUnit ? $toUnit->namaUnit : '-';
+
+            if ($from !== $to) {
+                $changes[] = "Unit Pendidikan dari \"$from\" menjadi \"$to\"";
             }
+
 
             // Keterangan
             if ($model->keterangan !== $original['keterangan']) {

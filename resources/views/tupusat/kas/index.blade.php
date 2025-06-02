@@ -99,7 +99,7 @@
                                 @else
                                     <span class="text-gray-400 italic"></span>
                                 @endif
-                            </td>      
+                            </td>
                         <td class="px-4 py-2 text-sm">
                               <a href="{{ route('tupusat.kas.edit', $transaksi->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a> |
                           <form action="{{ route('tupusat.kas.destroy', $transaksi->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin hapus?')">

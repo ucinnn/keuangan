@@ -12,7 +12,7 @@
                 <h3 class="text-xl font-semibold text-gray-800">Total Pemasukan</h3>
                 <p class="text-3xl font-bold text-green-700">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</p>
             </div>
-            
+
             <!-- Statistik Total Uang Keluar -->
             <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Pengeluaran</h3>
@@ -26,13 +26,13 @@
             </div>
 
                                     <!-- Statistik Tabungan -->
-              <div class="p-6 bg-white border-l-4 border-green-500 rounded-lg shadow-md">
+              {{-- <div class="p-6 bg-white border-l-4 border-green-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Saldo Masuk Tabungan</h3>
                 <p class="text-3xl font-bold text-green-700">Rp {{ number_format($totalSaldoMasuk, 0, ',', '.') }}</p>
-            </div>
-            
+            </div> --}}
+
             <!-- Statistik Total Saldo Awal Tabungan -->
-            <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
+            {{-- <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Saldo Keluar Tabungan</h3>
                 <p class="text-3xl font-bold text-red-700">Rp {{ number_format($totalSaldoKeluar, 0, ',', '.') }}</p>
             </div>
@@ -47,9 +47,9 @@
             <div class="p-6 bg-white border-l-4 border-green-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Kas Masuk</h3>
                 <p class="text-3xl font-bold text-green-700">Rp {{ number_format($totalKasMasuk, 0, ',', '.') }}</p>
-            </div>
+            </div> --}}
 
-              <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
+              {{-- <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Kas Keluar</h3>
                 <p class="text-3xl font-bold text-red-700">Rp {{ number_format($totalKasKeluar, 0, ',', '.') }}</p>
             </div>
@@ -64,9 +64,9 @@
                  <div class="p-6 bg-white border-l-4 border-green-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Tagihan Terbayar</h3>
                 <p class="text-3xl font-bold text-green-700">Rp {{ number_format($totalKasMasuk, 0, ',', '.') }}</p>
-            </div>
+            </div> --}}
 
-              <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
+              {{-- <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Tagihan Belum Terbayar</h3>
                 <p class="text-3xl font-bold text-red-700">Rp {{ number_format($totalKasKeluar, 0, ',', '.') }}</p>
             </div>
@@ -75,7 +75,7 @@
               <div class="p-6 bg-white border-l-4 border-blue-500 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800">Total Tagihan Keseluruhan </h3>
                 <p class="text-3xl font-bold text-blue-700">Rp {{ number_format($totalKas, 0, ',', '.') }}</p>
-            </div>
+            </div> --}}
 
             <!-- Statistik Unit Pendidikan Aktif -->
             {{-- <div class="p-6 bg-white border-l-4 border-yellow-500 rounded-lg shadow-md">
@@ -83,13 +83,7 @@
                 <p class="text-3xl font-bold text-yellow-700">{{ $totalUnit }}</p>
             </div> --}}
         </div>
-
-            <!-- Grafik Transaksi Tabungan per Bulan -->
-            <div class="p-6 bg-white rounded-lg shadow-md mb-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Grafik Tabungan Transaksi Setoran vs Penarikan per Bulan</h3>
-                <canvas id="transaksiChart"></canvas>
-            </div>        
-            <!-- Statistik Keuangan per Unit Pendidikan -->
+               <!-- Statistik Keuangan per Unit Pendidikan -->
         <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-md mt-6 mb-6">
             <h3 class="text-xl font-semibold text-gray-800 mb-4">Distribusi Keuangan per Unit Pendidikan</h3>
             <table class="min-w-full bg-white border border-gray-200 text-sm rounded-lg shadow-sm">
@@ -127,7 +121,6 @@
 
                                 {{ $unitNames[$unitId] ?? 'Unit Tidak Ditemukan' }}
                             </td>
-
                             <td class="border px-4 py-2 text-center">Rp {{ number_format($data->total_saldo_masuk, 0, ',', '.') }}</td>
                             <td class="border px-4 py-2 text-center">Rp {{ number_format($data->total_kas_masuk, 0, ',', '.') }}</td>
                             <td class="border px-4 py-2 text-center">Rp {{ number_format($data->total_tagihan_terbayar, 0, ',', '.') }}</td>
@@ -181,6 +174,13 @@
                 @endif
             </table>
         </div>
+
+            <!-- Grafik Transaksi Tabungan per Bulan -->
+            <div class="p-6 bg-white rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Grafik Tabungan Transaksi Setoran vs Penarikan per Bulan</h3>
+                <canvas id="transaksiChart"></canvas>
+            </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <!-- Statistik Siswa -->
             <div class="p-6 bg-white border-l-4 border-green-500 rounded-lg shadow-md">

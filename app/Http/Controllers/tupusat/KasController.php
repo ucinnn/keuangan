@@ -7,6 +7,7 @@ use App\Models\Kas;
 use App\Models\TransaksiKas;
 use App\Models\UnitPendidikan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KasController extends Controller
 {
@@ -85,7 +86,11 @@ class KasController extends Controller
     public function destroy($id)
     {
         $transaksiKas = TransaksiKas::findOrFail($id);
+        $transaksiKas->deleted_by = Auth::user()->username; // Atau ->name / ->email tergantung kolom di User
+        $transaksiKas->save();
+        // Lakukan soft delete
         $transaksiKas->delete();
+
 
         return redirect()->route('tupusat.kas.index')->with('success', 'Transaksi kas berhasil dihapus.');
     }

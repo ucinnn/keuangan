@@ -4,8 +4,7 @@
 <x-slot name="header">
 
 </x-slot>
-
-    <div class="max-w-5xl mx-auto mt-10 px-6">
+    <div class="mx-auto mt-10 px-6" style="max-width: 1250px">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <!-- Statistik Total Uang Masuk -->
                <div class="p-6 bg-white border-l-4 border-green-500 rounded-lg shadow-md">
@@ -84,7 +83,7 @@
             </div> --}}
         </div>
                <!-- Statistik Keuangan per Unit Pendidikan -->
-        <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-md mt-6 mb-6">
+        <div class="overflow-x-auto bg-white p-3 rounded-lg shadow-md mt-6 mb-6">
             <h3 class="text-xl font-semibold text-gray-800 mb-4">Distribusi Keuangan per Unit Pendidikan</h3>
             <table class="min-w-full bg-white border border-gray-200 text-sm rounded-lg shadow-sm">
                 <thead class="bg-gray-100 text-gray-700">
@@ -99,6 +98,9 @@
                         <th class="py-3 px-4 border-b">Total Tabungan Akhir</th>
                         <th class="py-3 px-4 border-b">Total Kas</th>
                         <th class="py-3 px-4 border-b">Total Tagihan</th>
+                        <th class="py-3 px-4 border-b">Total Pemasukan</th>
+                        <th class="py-3 px-4 border-b">Total Pengeluaran</th>
+                        <th class="py-3 px-4 border-b">Total Akhir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,6 +132,9 @@
                             <td class="border px-4 py-2 text-center">Rp {{ number_format($data->total_saldo_akhir, 0, ',', '.') }}</td>
                             <td class="border px-4 py-2 text-center font-semibold">Rp {{ number_format($data->total_kas, 0, ',', '.') }}</td>
                             <td class="border px-4 py-2 text-center font-semibold">Rp {{ number_format($data->total_tagihan, 0, ',', '.') }}</td>
+                            <td class="border px-4 py-2 text-center font-semibold">Rp {{ number_format($data->total_pemasukan, 0, ',', '.') }}</td>
+                            <td class="border px-4 py-2 text-center font-semibold">Rp {{ number_format($data->total_pengeluaran, 0, ',', '.') }}</td>
+                            <td class="border px-4 py-2 text-center font-semibold">Rp {{ number_format($data->total_akhir, 0, ',', '.') }}</td>
                         </tr>
                         @endforeach
                     @else
@@ -168,6 +173,15 @@
                         </th>
                         <th class="border px-4 py-2 text-center font-bold text-blue-700">
                             Rp {{ number_format(collect($keuanganPerUnit)->sum('total_tagihan'), 0, ',', '.') }}
+                        </th>
+                           <th class="border px-4 py-2 text-center font-bold text-green-700">
+                            Rp {{ number_format(collect($keuanganPerUnit)->sum('total_pemasukan'), 0, ',', '.') }}
+                        </th>
+                         <th class="border px-4 py-2 text-center font-bold text-red-700">
+                            Rp {{ number_format(collect($keuanganPerUnit)->sum('total_pengeluaran'), 0, ',', '.') }}
+                        </th>
+                           <th class="border px-4 py-2 text-center font-bold text-blue-700">
+                            Rp {{ number_format(collect($keuanganPerUnit)->sum('total_akhir'), 0, ',', '.') }}
                         </th>
                     </tr>
                 </tfoot>

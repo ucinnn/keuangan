@@ -165,7 +165,10 @@ class DashboardController extends Controller
                     'total_tagihan_belum_terbayar' => $totalTagihanBelumTerbayar,
                     'total_saldo_akhir' => $totalSaldoAkhir,
                     'total_kas' => $totalKasMasuk - $totalKasKeluar,
-                    'total_tagihan' => $totalTagihanTerbayar + $totalTagihanBelumTerbayar
+                    'total_tagihan' => $totalTagihanTerbayar + $totalTagihanBelumTerbayar,
+                    'total_pemasukan' => $totalSaldoMasuk + $totalKasMasuk + $totalTagihanTerbayar,
+                    'total_pengeluaran' => $totalSaldoKeluar + $totalKasKeluar,
+                    'total_akhir' => $totalSaldoMasuk + $totalKasMasuk + $totalTagihanTerbayar - ($totalSaldoKeluar + $totalKasKeluar)
                 ]);
             }
         }

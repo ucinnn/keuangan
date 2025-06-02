@@ -110,7 +110,7 @@
                                 <th class="py-2 px-4 border-r">Nama Siswa</th>
                                 <th class="py-2 px-4 border-r">Unit</th>
                                 <th class="py-2 px-4 border-r">Kelas</th>
-                                <th class="py-2 px-4 border-r">Saldo Awal</th>
+                                <th class="py-2 px-4 border-r">Setoran Awal</th>
                                 <th class="py-2 px-4 border-r">Saldo Akhir</th>
                                 <th class="py-2 px-4 border-r">Created By</th>
                                 @if(request()->get('trashed'))

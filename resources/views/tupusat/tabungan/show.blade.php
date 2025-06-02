@@ -11,7 +11,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div class="p-4 bg-green-50 border-l-4 border-green-400 rounded">
-                    <p class="text-gray-600 text-sm">Saldo Awal</p>
+                    <p class="text-gray-600 text-sm">Setoran Awal</p>
                     <p class="text-lg font-semibold text-green-800">
                         Rp {{ number_format($tabungan->saldo_awal, 0, ',', '.') }}
                     </p>

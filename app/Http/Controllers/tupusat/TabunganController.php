@@ -113,14 +113,16 @@ class TabunganController extends Controller
     // Membuat tabungan baru untuk siswa (jika belum punya)
     public function create()
     {
-        $siswas = Siswa::where('status', 'Aktif') // hanya yang aktif
+        $siswas = Siswa::where('status', 'Aktif')
             ->whereDoesntHave('tabungan', function ($query) {
-                $query->withTrashed(); // cek meskipun tabungannya di-soft-delete
+                $query->onlyTrashed();
             })
+            ->whereDoesntHave('tabungan') // pastikan tidak punya tabungan aktif juga
             ->get();
 
         return view('tupusat.tabungan.create', compact('siswas'));
     }
+
 
     public function store(Request $request)
     {

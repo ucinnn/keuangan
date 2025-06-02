@@ -83,7 +83,7 @@
             </div> --}}
         </div>
                <!-- Statistik Keuangan per Unit Pendidikan -->
-        <div class="overflow-x-auto bg-white p-3 rounded-lg shadow-md mt-6 mb-6">
+        <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-md mt-6 mb-6">
             <h3 class="text-xl font-semibold text-gray-800 mb-4">Distribusi Keuangan per Unit Pendidikan</h3>
             <table class="min-w-full bg-white border border-gray-200 text-sm rounded-lg shadow-sm">
                 <thead class="bg-gray-100 text-gray-700">

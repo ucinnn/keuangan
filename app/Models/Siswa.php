@@ -31,7 +31,7 @@ class Siswa extends Model
 
     public function tabungan()
     {
-        return $this->hasOne(Tabungan::class);
+        return $this->hasMany(Tabungan::class);
     }
     protected static function booted()
     {

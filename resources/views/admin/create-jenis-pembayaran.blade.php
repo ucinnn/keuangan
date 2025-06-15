@@ -1,101 +1,77 @@
 <x-layout-admin>
-    <x-slot name="header">
-        <!-- Tambahkan konten header jika diperlukan -->
-    </x-slot>
+    <x-slot name="header"></x-slot>
 
     <div class="max-w-4xl mx-auto mt-10">
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-6">Tambah Data Jenis Pemasukan</h2>
+            <h2 class="text-2xl font-bold mb-6">Tambah Jenis Pembayaran</h2>
 
-            <!-- Menampilkan Notifikasi Error -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             @if ($errors->any())
-                <div class="bg-red-500 text-white p-4 rounded mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal!',
+                        text: '{{ $errors->first() }}',
+                    });
+                </script>
             @endif
 
             <form method="POST" action="{{ route('admin.create-jenis-pembayaran-submit') }}" class="space-y-4">
                 @csrf
 
-                <!-- Input Nama Pembayaran -->
                 <div class="flex items-center space-x-4">
-                    <label for="nama_pembayaran" class="text-sm font-medium text-gray-700 w-1/4">Nama Pembayaran</label>
-                    <input class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" id="nama_pembayaran" name="nama_pembayaran" type="text" value="{{ old('nama_pembayaran') }}" required />
+                    <label class="text-sm font-medium text-gray-700 w-1/4">Nama Pembayaran</label>
+                    <input type="text" name="nama_pembayaran" class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" required>
                 </div>
 
-                <!-- Input Tipe Pembayaran -->
                 <div class="flex items-center space-x-4">
-                    <label for="tipe_pembayaran" class="text-sm font-medium text-gray-700 w-1/4">Tipe Pembayaran</label>
-                    <select class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" id="type" name="type" required>
-                        <option value="">Pilih Tipe Pembayaran</option>
-                        <option value="Bulanan" {{ old('type') == 'Bulanan' ? 'selected' : '' }}>Bulanan</option>
-                        <option value="Semester" {{ old('type') == 'Semester' ? 'selected' : '' }}>Semester</option>
-                        <option value="Bebas" {{ old('type') == 'Bebas' ? 'selected' : '' }}>Bebas</option>
+                    <label class="text-sm font-medium text-gray-700 w-1/4">Tipe Pembayaran</label>
+                    <select name="type" class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" required>
+                        <option value="Bulanan">Bulanan</option>
+                        <option value="Semester">Semester</option>
+                        <option value="Tahunan">Tahunan</option>
+                        <option value="Bebas">Bebas</option>
                     </select>
                 </div>
 
-                <!-- Input Tahun Ajaran -->
                 <div class="flex items-center space-x-4">
-                    <label for="tahun" class="text-sm font-medium text-gray-700 w-1/4">Tahun Ajaran</label>
-                    <select class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" id="tahun" name="id_tahunajaran" required>
-                        <option value="">Pilih Tahun Ajaran</option>
+                    <label class="text-sm font-medium text-gray-700 w-1/4">Tahun Ajaran</label>
+                    <select name="id_tahunajaran" class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" required>
                         @foreach ($tahunAjaran as $tahun)
-                            <option value="{{ $tahun->id }}" {{ old('id_tahunajaran') == $tahun->id ? 'selected' : '' }}>{{ $tahun->tahun_ajaran }}</option>
+                            <option value="{{ $tahun->id }}">{{ $tahun->tahun_ajaran }}/{{ $tahun->tahun_ajaran + 1 }}</option>
                         @endforeach
                     </select>
                 </div>
 
-                <!-- Input Nominal -->
                 <div class="flex items-center space-x-4">
-                    <label for="nominal_jenispembayaran" class="text-sm font-medium text-gray-700 w-1/4">Nominal</label>
-                    <input class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" id="nominal_jenispembayaran" name="nominal_jenispembayaran" type="text" value="{{ old('nominal_jenispembayaran') }}" required />
+                    <label class="text-sm font-medium text-gray-700 w-1/4">Nominal</label>
+                    <input type="number" name="nominal_jenispembayaran" class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" required>
                 </div>
 
-                <!-- Input Status -->
                 <div class="flex items-center space-x-4">
-                    <label class="w-1/4">Status</label>
+                    <label class="text-sm font-medium text-gray-700 w-1/4">Status</label>
                     <select class="w-3/4 p-2 border rounded-md bg-gray-100" name="status_display" disabled>
                         <option value="Aktif" selected>Aktif</option>
                     </select>
                     <input type="hidden" name="status" value="Aktif">
                 </div>
 
-                <!-- Input Unit Pendidikan -->
                 <div class="flex items-center space-x-4">
-                    <label for="idunitpendidikan" class="text-sm font-medium text-gray-700 w-1/4">Unit Pendidikan</label>
-                    <select class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" id="idunitpendidikan" name="idunitpendidikan" required>
-                        <option value="">Pilih Unit</option>
-                        <option value="2" {{ old('idunitpendidikan') == '2' ? 'selected' : '' }}>TK</option>
-                        <option value="3" {{ old('idunitpendidikan') == '3' ? 'selected' : '' }}>SD</option>
-                        <option value="4" {{ old('idunitpendidikan') == '4' ? 'selected' : '' }}>SMP</option>
-                        <option value="5" {{ old('idunitpendidikan') == '5' ? 'selected' : '' }}>SMA</option>
-                        <option value="6" {{ old('idunitpendidikan') == '6' ? 'selected' : '' }}>MADIN</option>
-                        <option value="7" {{ old('idunitpendidikan') == '7' ? 'selected' : '' }}>TPQ</option>
-                        <option value="8" {{ old('idunitpendidikan') == '8' ? 'selected' : '' }}>Ya Pondok</option>
-                        <option value="9" {{ old('idunitpendidikan') == '9' ? 'selected' : '' }}>Tidak Pondok</option>
+                    <label class="text-sm font-medium text-gray-700 w-1/4">Unit Pendidikan</label>
+                    <select name="idunitpendidikan" class="w-3/4 p-2 border rounded-md focus:ring focus:ring-green-300" required>
+                        @foreach ($unitpendidikan as $unit)
+                            <option value="{{ $unit->id }}">{{ $unit->namaUnit }}</option>
+                        @endforeach
                     </select>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="flex justify-end mt-4 space-x-4">
-                    <a href="{{ route('admin.manage-jenis-pembayaran') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 inline-flex items-center">
-                        Kembali
-                    </a>
-                    <button type="reset" class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600">Reset</button>
-                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Simpan</button>
+                    <a href="{{ route('admin.manage-jenis-pembayaran') }}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Kembali</a>
+                    <button type="reset" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">Reset</button>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
-
-    <!-- JavaScript jika diperlukan -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Handle Form Submit or Other JS logic if needed
-        });
-    </script>
 </x-layout-admin>

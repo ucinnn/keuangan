@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class tuunit extends Authenticatable
+class yayasan extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $guard = 'tuunits';
-    protected $table = 'tuunits';
+    protected $guard = 'yayasans';
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +25,6 @@ class tuunit extends Authenticatable
         'password',
         'username',
         'role',
-        'namaUnit',
     ];
 
     /**
@@ -40,20 +38,18 @@ class tuunit extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
-    // Di model Admin
-    public function unitpendidikan()
+    protected function casts(): array
     {
-        return $this->belongsTo(UnitPendidikan::class);
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
-
+    // Di model Admin
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); // Foreign key-nya adalah 'user_id'

@@ -34,7 +34,7 @@ class LoginController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(AdminRequest $request): RedirectResponse
     {
         Auth::guard(name: 'admin')->logout();
 

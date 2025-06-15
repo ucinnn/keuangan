@@ -26,6 +26,7 @@ class ResetPasswordNotification extends Notification
         // Tentukan base path berdasarkan role
         $basePath = match ($this->role) {
             'admin'   => '/admin',
+            'yayasan'  => '/yayasan',
             'tupusat' => '/tupusat',
             'tuunit'  => '/tuunit',
             default   => '/',

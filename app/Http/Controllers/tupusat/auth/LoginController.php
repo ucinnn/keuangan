@@ -34,7 +34,7 @@ class LoginController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(TuPusatRequest $request): RedirectResponse
     {
         Auth::guard(name: 'tupusat')->logout();
 

@@ -1,47 +1,47 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\yayasan\auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\AdminRequest;
+use App\Http\Requests\Auth\yayasanRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class AdminAuthenticatedSessionController extends Controller
+class yayasanAuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      */
     public function create(): View
     {
-        return view('admin.login');
+        return view('yayasan.login');
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(AdminRequest $request): RedirectResponse
+    public function store(yayasanRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.dashboard', absolute: false));
+        return redirect()->intended(route('yayasan.dashboard.indexs', absolute: false));
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(AdminRequest $request): RedirectResponse
+    public function destroy(yayasanRequest $request): RedirectResponse
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('yayasan')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect('/yayasan/login');
     }
 }

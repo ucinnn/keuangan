@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\tupusat\auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\TuPusatRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class TupusatAuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(TuPusatRequest $request): RedirectResponse
     {
         $request->authenticate();
 
@@ -34,7 +34,7 @@ class TupusatAuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(TuPusatRequest $request): RedirectResponse
     {
         Auth::guard('tupusat')->logout();
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class TuPusatRequest extends FormRequest
+class yayasanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -41,7 +41,9 @@ class TuPusatRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::guard('tupusat')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+
+
+        if (! Auth::guard('yayasan')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

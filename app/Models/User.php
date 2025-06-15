@@ -60,8 +60,13 @@ class User extends Authenticatable
      */
     public function unitpendidikan()
     {
-        return $this->belongsTo(UnitPendidikan::class, 'unitpendidikan_id', 'id');
+        return $this->belongsTo(UnitPendidikan::class);
     }
+
+    // public function unitpendidikan()
+    // {
+    //     return $this->belongsTo(UnitPendidikan::class, 'unitpendidikan_id', 'id');
+    // }
     // Di model User
     public function admin()
     {
@@ -79,6 +84,11 @@ class User extends Authenticatable
     public function tuunit()
     {
         return $this->hasOne(Tuunit::class, 'user_id'); // BUKAN 'users_id'
+    }
+
+       public function yayasan()
+    {
+        return $this->hasOne(Yayasan::class, 'user_id'); // BUKAN 'users_id'
     }
 
     public function sendPasswordResetNotification($token)

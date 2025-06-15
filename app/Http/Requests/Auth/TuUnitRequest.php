@@ -41,7 +41,7 @@ class TuUnitRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::guard(name: 'tuunit')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('tuunit')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -51,7 +51,6 @@ class TuUnitRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
     }
-
     /**
      * Ensure the login request is not rate limited.
      *

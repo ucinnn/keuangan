@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'admin', // <-- sudah cocok
         ],
+        'yayasan' => [
+            'driver' => 'session',
+            'provider' => 'yayasan',
+        ],
         'tupusat' => [
             'driver' => 'session',
             'provider' => 'tupusat',
@@ -81,6 +85,11 @@ return [
         'admin' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admin::class),
+        ],
+
+        'yayasan' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Yayasan::class),
         ],
 
         'tupusat' => [
@@ -130,6 +139,12 @@ return [
             'throttle' => 60,
         ],
         'admins' => [ // tambahkan ini
+            'provider' => 'admin', // cocokkan dengan provider `admin` di atas
+            'table' => 'password_reset_tokens', // atau tabel Anda
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'yayasan' => [ // tambahkan ini
             'provider' => 'admin', // cocokkan dengan provider `admin` di atas
             'table' => 'password_reset_tokens', // atau tabel Anda
             'expire' => 60,

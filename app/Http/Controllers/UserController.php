@@ -184,7 +184,7 @@ class UserController extends Controller
                     break;
 
                 case 'yayasan':
-                    $yayasan = Yayasan::create([
+                    Yayasan::create([
                         'user_id' => $users->id,
                         'name' => $validated['nama_user'],
                         'email' => $validated['email'],

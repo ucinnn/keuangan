@@ -28,7 +28,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('yayasan.dashboard.index', absolute: false));
+        return redirect()->intended(route('yayasan.dashboard', absolute: false));
     }
 
     /**

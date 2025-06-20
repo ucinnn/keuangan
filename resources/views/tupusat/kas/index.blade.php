@@ -75,10 +75,11 @@
                     <thead class="bg-gray-100 text-xs uppercase text-gray-600">
                         <tr>
                             <th class="px-4 py-3">No</th>
+                            <th class="px-4 py-3">Tanggal</th>
                             <th class="px-4 py-3">Nama Kas</th>
                             <th class="px-4 py-3">Tipe</th>
                             <th class="px-4 py-3">Nominal</th>
-                            <th class="px-4 py-3">Unit Pendidikan</th>
+                            <th class="px-4 py-3">Unit</th>
                             <th class="px-4 py-3">Created By</th>
                             <th class="px-4 py-3">Keterangan</th>
                             <th class="px-4 py-3">Informasi</th>
@@ -89,6 +90,7 @@
                         @foreach ($transaksiKas as $key => $transaksi)
                             <tr class="border-b hover:bg-gray-50">
                                 <td class="px-4 py-3">{{ $key + 1 }}</td>
+                                <td class="px-4 py-3">{{ \Carbon\Carbon::parse($transaksi->tanggal_bayar)->format('d/m/Y') }}</td>
                                 <td class="px-4 py-3">{{ $transaksi->kas ? $transaksi->kas->namaKas : 'Kas tidak ditemukan' }}</td>
                                 <td class="px-4 py-3">{{ $transaksi->tipe }}</td>
                                 <td class="px-4 py-3">Rp. {{ number_format($transaksi->nominal, 2, ',', '.') }}</td>
@@ -113,9 +115,9 @@
                                     @endif
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="space-x-2">
+                                    <div class="text-center">
                                         <a href="{{ route('tupusat.kas.edit', $transaksi->id) }}"
-                                            class="text-yellow-500 hover:text-yellow-700">Edit</a>
+                                            class="text-yellow-500 hover:text-yellow-700">Edit</a> <br>
                                         <form action="{{ route('tupusat.kas.destroy', $transaksi->id) }}"
                                             method="POST" class="inline-block"
                                             onsubmit="return confirm('Yakin hapus?')">

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transaksi_kas', function (Blueprint $table) {
             $table->id();
+            $table->date('tanggal_bayar')->nullable();
             $table->foreignId('kas_id')->constrained('kas')->onDelete('cascade'); // Relasi dengan kas
             $table->decimal('nominal', 15, 2);
             $table->text('keterangan')->nullable();

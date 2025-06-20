@@ -3,52 +3,90 @@
 <head>
     <title>Kwitansi Pembayaran</title>
     <style>
-        body { font-family: 'Arial', sans-serif; font-size: 12px; margin: 0; padding: 0px; }
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 10px;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Wrapper untuk menempatkan kwitansi di tengah */
         .wrapper {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center; /* Vertikal center */
+            align-items: center; /* Horizontal center */
+            width: 100%;
+            height: 100vh; /* Pastikan wrapper memiliki tinggi penuh */
+            padding: 2mm; /* Sesuaikan margin halaman */
         }
+
         .kwitansi {
-            width: 48%;
+            width: 95%; /* Lebar kwitansi disesuaikan */
             border: 1px solid #000;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
             margin-bottom: 20px;
+            page-break-inside: avoid;
+            font-size: 9px;
         }
+
         .header {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .logo {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             margin-right: 15px;
         }
+
         .judul {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
             text-align: left;
         }
+
         .info {
             margin: 5px 0;
+            font-size: 9px;
         }
+
         .footer {
             margin-top: 10px;
             text-align: right;
             font-style: italic;
+            font-size: 9px;
         }
+
         .ttd {
-            margin-top: 25px;
+            margin-top: 20px;
             text-align: right;
         }
+
         .ttd p {
             margin: 0;
+            font-size: 9px;
         }
+
         .line {
             border-top: 1px dashed #000;
-            margin: 20px 0;
+            margin: 15px 0;
+        }
+
+        @page {
+            size: A5 portrait;
+            margin-top: 2mm;  /* Mengubah margin-top */
+            margin-right: 10mm;
+            margin-bottom: 10mm;
+            margin-left: 5mm;
+        }
+
+        /* Menghindari elemen kwitansi terputus */
+        .kwitansi:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -75,7 +113,7 @@
                 <div class="info"><strong>Tanggal Bayar:</strong> {{ \Carbon\Carbon::parse($tagihan->tanggal_bayar)->translatedFormat('d F Y') }}</div>
                 <div class="info"><strong>Jumlah:</strong> Rp {{ number_format($tagihan->jumlah_dibayar, 0, ',', '.') }}</div>
                 <div class="info"><strong>Jumlah Dibayar:</strong> Rp {{ number_format($tagihan->jumlah_dibayar, 0, ',', '.') }}</div>
-                <div class="info"><strong>Status:</strong> {{ $tagihan->status }}</div>
+                <div class="info"><strong>Status:</strong> {{ ucfirst($tagihan->status) }}</div>
 
                 <div class="ttd">
                     <p>Petugas</p>
